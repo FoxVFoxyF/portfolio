@@ -79,6 +79,36 @@
     70% { clip: rect(10px, 9999px, 20px, 0); }
     90% { clip: rect(0, 9999px, 10px, 0); }
 }
+
+
+.glow-border {
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #121212;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: box-shadow 1.5s ease-in-out;
+    box-shadow: 0 0 0px #ff2a6d, 0 0 0px #ff2a6d, 0 0 0px #ff2a6d, 0 0 0px #ff2a6d;
+}
+
+.glow-border:hover {
+    box-shadow: 0 0 15px #05d9e8, 0 0 30px #05d9e8, 0 0 60px #05d9e8, 0 0 120px #05d9e8;
+}
+
+@keyframes glowAnim {
+    0% {
+        box-shadow: 0 0 0px #ff2a6d, 0 0 0px #ff2a6d, 0 0 0px #ff2a6d, 0 0 0px #ff2a6d;
+    }
+    50% {
+        box-shadow: 0 0 15px #05d9e8, 0 0 30px #05d9e8, 0 0 60px #05d9e8, 0 0 120px #05d9e8;
+    }
+    100% {
+        box-shadow: 0 0 0px #ff2a6d, 0 0 0px #ff2a6d, 0 0 0px #ff2a6d, 0 0 0px #ff2a6d;
+    }
+}
+
+
     </style>
 </head>
 <body class="bg-nice_gray">
@@ -87,7 +117,7 @@
 
 
     <div class="fixed top-5 right-5 z-50">
-        <button id="change_language" class="px-3 py-1 bg-nice_gray text-white rounded hover:bg-blue-600 transition-opacity duration-500">
+        <button id="change_language" class="px-3 py-1 bg-nice_gray text-white rounded transition-opacity duration-500 glow-border">
             Zmień język
         </button>
     </div>
@@ -96,13 +126,21 @@
 
 
         <h1 id="_1" class="text-4xl font-bold">Welcome to My Portfolio</h1>
-        <button id="go-next" class="mt-4 px-5 py-2 bg-nice_gray text-white rounded hover:bg-blue-600">
+        <button id="go-next" class="mt-4 px-5 py-2 bg-nice_gray text-white rounded hover:bg-blue-600 glow-border">
             Begin
         </button>
     </nav>
 
     <nav id="section-2" class="h-screen bg-nice_gray p-10"> <!-- credits for glitch effect https://www.subframe.com/tips/css-glow-text-effect-examples !-->
-        <h2 class="text-white text-center font-Rajdhani font-bold text-[2rem] glitch" data-text="aka kjukjumad/fox">aka kjukjumad/fox</h2>
+        <div class="flex justify-center h-50vh">
+          <div class="flex flex-col w-1/2 bg-[#151515] rounded-[1vw]">
+            <h2 class="my-10 w-1/2 mx-auto text-white text-center font-Rajdhani font-bold text-[2rem] glitch" data-text="aka kjukjumad/fox">
+              aliases kjukjumad/fox
+            </h2>
+          </div>
+        </div>
+
+
     </nav>
 
     <script>
