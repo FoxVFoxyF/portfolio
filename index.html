@@ -95,6 +95,9 @@
 .glow-border:hover {
     box-shadow: 0 0 15px #05d9e8, 0 0 30px #05d9e8, 0 0 60px #05d9e8, 0 0 120px #05d9e8;
 }
+#change_language {
+    transition: opacity 0.5s ease-in-out, box-shadow 1.5s ease-in-out;
+}
 
 @keyframes glowAnim {
     0% {
@@ -187,7 +190,7 @@ langBtn.addEventListener("click", function() {
         if (isEnglish) {
             document.getElementById("_1").textContent = "Witam w moim portfolio";
             langBtn.textContent = "Change Language";
-            document.getElementById("go-next").textContent = "Zaczynamy!!";
+            document.getElementById("go-next").textContent = "Zaczynajmy!!";
         } else {
             document.getElementById("_1").textContent = "Welcome to My Portfolio";
             langBtn.textContent = "Zmień język";
