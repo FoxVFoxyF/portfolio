@@ -119,6 +119,41 @@
         0 0 120px #265787;
 }
 
+/* Roblox accurate glow */
+.glow-border-roblox {
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    color: #fff;
+    /* base (no glow) */
+    box-shadow: 0 0 0px #ff0000, 0 0 0px #b20000;
+}
+
+.glow-border-roblox:hover {
+    transform: scale(1.05);
+    /* layered red glows to mimic Roblox branding */
+    box-shadow: 0 0 18px rgba(255,0,0,0.85), 0 0 40px rgba(255,77,77,0.6), 0 0 120px rgba(178,0,0,0.45);
+}
+
+.glow-border-close-btn {
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 0 0px #e87d0d, 0 0 0px #265787, 0 0 0px #265787, 0 0 0px #265787;
+}
+
+.glow-border-close-bt:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 0 15px #f50000, 
+        0 0 30px #f50000, 
+        0 0 60px #f50000, 
+        0 0 120px #f50000;
+}
+
 .card-item {
     position: relative;
 }
@@ -134,12 +169,174 @@
     transition: all 0.5s ease-in-out;
 }
 
+@keyframes closeCard {
+    0% {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+    }
+    100% {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: translate(0, 0);
+        width: 100%;
+        height: auto;
+    }
+}
+
 .card-image.hidden {
     display: none;
 }
 
 .card-item.expanded .card-image {
     display: none;
+}
+
+.close-btn {
+    position: fixed;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: #000000;
+    border: 2px solid #ff2a6d;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 101;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.close-btn.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    pointer-events: auto;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+.close-btn:hover {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate(20px, -20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    to {
+        opacity: 0;
+        transform: translate(20px, -20px);
+    }
+}
+
+/* Lightbox Modal */
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding: 20px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.lightbox-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-content {
+    position: relative;
+    background-color: #0a0a0a;
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
+    border: 2px solid #05d9e8;
+    overflow: hidden;
+    animation: zoomIn 0.3s ease-in-out;
+}
+
+.lightbox-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #ff2a6d;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 1001;
+}
+
+.lightbox-close:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: rotate(90deg);
+    box-shadow: 0 0 20px #ff2a6d;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.clickable-image {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+.clickable-image:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
 }
 
 
@@ -166,6 +363,13 @@
 
 <div id="lang-overlay"></div>
 
+<!-- Lightbox Modal -->
+<div id="lightbox-modal" class="lightbox-modal">
+    <div class="lightbox-content">
+        <img id="lightbox-image" src="" alt="Enlarged image">
+        <span class="lightbox-close">&times;</span>
+    </div>
+</div>
 
 
     
@@ -189,10 +393,10 @@
     </nav>
 
 <nav id="section-2" class="h-screen bg-nice_gray p-10">
-
+      <button class="close-btn glow-border-close-bt hover:scale-105">✕</button>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 h-full items-center justify-center">
                 <h2 id="_2" class="my-10 w-1/2 mx-auto text-white text-center font-Rajdhani font-bold text-[2rem] glitch" data-text="my work">my work</h2>
-    <div class="bg-[#1c1c1c] rounded shadow-md overflow-hidden transition-all duration-300 hover:scale-105 glow-border-blender card-item" data-card="blender">
+    <div class="bg-[#121212] rounded shadow-md overflow-hidden transition-all duration-300 hover:scale-105 glow-border-blender card-item" data-card="blender">
       <div class="bg-[#e87d0d] px-4 py-2 flex justify-between items-center w-full">
         <span class="text-white font-Rajdhani font-bold">Blender</span>
         <div class="flex space-x-2">
@@ -208,6 +412,7 @@
 
 
         <div class="bg-[#1c1c1c] rounded shadow-md overflow-hidden transition-all duration-300 hover:scale-105 glow-border card-item" data-card="unity">
+
       <div class="bg-[#171717] px-4 py-2 flex justify-between items-center w-full">
         <span class="text-white font-Rajdhani font-bold">Unity</span>
         <div class="flex space-x-2">
@@ -218,6 +423,22 @@
       </div>
       <div class="p-6 flex justify-center items-center card-content">
         <img src="assets/images/U_Logo_Small_White_RGB_1C-1589x537-ada00fa.png" alt="Blender" class="w-100% h-16 card-image">
+      </div>
+    </div>
+
+
+    <div class="bg-[#1c1c1c] rounded shadow-md overflow-hidden transition-all duration-300 hover:scale-105 glow-border-roblox card-item" data-card="roblox">
+
+      <div class="bg-[#171717] px-4 py-2 flex justify-between items-center w-full">
+        <span class="text-white font-Rajdhani font-bold">Roblox</span>
+        <div class="flex space-x-2">
+          <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+          <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+          <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+        </div>
+      </div>
+      <div class="p-6 flex justify-center items-center card-content">
+        <span class="text-white text-sm h-16"></span>
       </div>
     </div>
 
@@ -235,6 +456,218 @@
 
 
 <script>
+const cardData = {
+    blender: {
+        title: "Blender",
+        description: "Animations & Physics Simulations",
+        animations: [
+            { src: "assets/videos/anim.mp4", alt: "Animation 1" },
+            { src: "assets/videos/anim1.mp4", alt: "Animation 2" }
+        ],
+        info: "Watched extensive tutorials covering tools, interface, and basic concepts",
+        experience: [
+            "Navigation and interface",
+            "Tool fundamentals",
+            "Animation basics", 
+            "Physics simulations",
+            "Rendering techniques"
+        ]
+    },
+    unity: {
+        title: "Unity",
+        description: "VRChat Avatars & Bonelab Mods",
+        projects: [
+            {
+                num: "1",
+                title: "VRChat Avatar Creation",
+                description: "Creating custom avatars using VRChat SDK with advanced features",
+                details: [
+                    "Building avatars from Booth models",
+                    "Outfit toggles system",
+                    "Make-up and cosmetics",
+                    "Custom toys and accessories"
+                ],
+                images: ["assets/images/ex1.png", "assets/images/ex2.png", "assets/images/ex3.png"]
+            },
+            {
+                num: "2",
+                title: "Avatar Conversion (Booth → MarrowSDK)",
+                description: "Converting VRChat avatars to Stress Level Zero format",
+                details: [
+                    "Booth model conversion to StressLevelZero",
+                    "MarrowSDK rigging and setup",
+                    "Precise hitbox calibration",
+                    "Bone structure adjustment",
+                    "Boopable character parts"
+                ],
+                images: ["assets/images/placeholder-marrow-sdk1.png", "assets/images/placeholder-marrow-sdk2.png"]
+            },
+            {
+                num: "3",
+                title: "AI Learning & Simulation",
+                description: "Working on AI simulation and learning systems (in progress)",
+                details: [
+                    "AI movement simulation",
+                    "Machine learning model training",
+                    "Complex simulation environment setup",
+                    "High time investment required",
+                    "Ongoing learning project"
+                ],
+                note: "Project exceeded initial scope - requires significant time dedication"
+            }
+        ]
+    },
+    roblox: {
+        title: "Roblox",
+        description: "Game Development & AI Systems",
+        projects: [
+            {
+                num: "1",
+                title: "AI NPC Engine",
+                description: "Complete AI system with voice and chat integration",
+                details: [
+                    "Full Lua codebase for AI handling",
+                    "Real-time TTS (Text-to-Speech) - RVC integration",
+                    "Real-time voice with Corona integration",
+                    "ChatGPT-powered conversation system",
+                    "Advanced NPC interactions",
+                    "Actions: sit, look, backaway, walk, interact with game"
+                ],
+                video: "assets/videos/placeholder-roblox-ai.mp4"
+            },
+            {
+                num: "2",
+                title: "Advanced UI Design",
+                description: "High-quality user interface development",
+                details: [
+                    "Professional UI design",
+                    "Responsive layouts",
+                    "Interactive elements",
+                    "Polish and optimization",
+                    "User experience focused"
+                ],
+                image: "assets/images/placeholder-roblox-ui.png"
+            },
+            {
+                num: "3",
+                title: "FPS Game (In Development)",
+                description: "Realistic first-person shooter game",
+                details: [
+                    "Accurate real-life mechanics",
+                    "Advanced weapon systems",
+                    "Physics-based gameplay",
+                    "Currently paused - can be resumed",
+                    "High-fidelity design"
+                ],
+                images: ["assets/images/placeholder-roblox-fps.png", "assets/videos/placeholder-roblox-fps.mp4"]
+            }
+        ]
+    },
+};
+
+
+function generateCardContent(cardType) {
+    const data = cardData[cardType];
+    let content = '';
+
+    if (cardType === 'blender') {
+        content = `
+            <div class="flex flex-col gap-6 w-full">
+                <h3 class="text-white text-2xl font-Rajdhani font-bold">${data.title}</h3>
+                <p class="text-gray-300">${data.description}</p>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <h4 class="col-span-2 text-white font-Rajdhani font-bold">Animations:</h4>
+                    ${data.animations.map(anim => `
+                        <div class="bg-[#0f0f0f] rounded overflow-hidden">
+                            <video src="${anim.src}" alt="${anim.alt}" class="w-full h-40 object-cover" autoplay muted loop playsinline></video>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="border-l-2 border-[#e87d0d] pl-4">
+                    <p class="text-gray-300 italic">${data.info}</p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-Rajdhani font-bold mb-2">Experience:</h4>
+                    <ul class="text-white space-y-2">
+                        ${data.experience.map(exp => `
+                            <li class="flex items-center gap-2">
+                                <span class="text-[#e87d0d]">▸</span>
+                                ${exp}
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            </div>
+        `;
+    } else if (cardType === 'unity') {
+        content = `
+            <div class="flex flex-col gap-6 w-full max-h-[70vh] overflow-y-auto">
+                <h3 class="text-white text-2xl font-Rajdhani font-bold">${data.title}</h3>
+                <p class="text-gray-300">${data.description}</p>
+                
+                ${data.projects.map(project => `
+                    <div class="bg-[#0f0f0f] rounded p-4 border-l-4 border-[#05d9e8]">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-[#05d9e8] text-black px-3 py-1 rounded-full font-bold text-sm">${project.num}</span>
+                            <h4 class="text-white font-Rajdhani font-bold text-lg">${project.title}</h4>
+                        </div>
+                        <p class="text-gray-400 mb-3">${project.description}</p>
+                        
+                        ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-32 object-cover rounded mb-3 clickable-image" onclick="openLightbox('${project.image}')">` : ''}
+                        ${project.images ? project.images.map(img => `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}')">`).join('') : ''}
+                        
+                        <ul class="text-white space-y-1 text-sm">
+                            ${project.details.map(detail => `
+                                <li class="flex items-center gap-2">
+                                    <span class="text-[#05d9e8]">▸</span>
+                                    ${detail}
+                                </li>
+                            `).join('')}
+                        </ul>
+                        
+                        ${project.note ? `<p class="text-gray-500 text-sm italic mt-2">💡 ${project.note}</p>` : ''}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } else if (cardType === 'roblox') {
+        content = `
+            <div class="flex flex-col gap-6 w-full max-h-[70vh] overflow-y-auto">
+                <h3 class="text-white text-2xl font-Rajdhani font-bold">${data.title}</h3>
+                <p class="text-gray-300">${data.description}</p>
+                
+                ${data.projects.map(project => `
+                    <div class="bg-[#0f0f0f] rounded p-4 border-l-4 border-[#ff0000]">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-[#ff0000] text-white px-3 py-1 rounded-full font-bold text-sm">${project.num}</span>
+                            <h4 class="text-white font-Rajdhani font-bold text-lg">${project.title}</h4>
+                        </div>
+                        <p class="text-gray-400 mb-3">${project.description}</p>
+                        
+                        ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-32 object-cover rounded mb-3 clickable-image" onclick="openLightbox('${project.image}')">` : ''}
+                        ${project.images ? project.images.map(img => `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}')">`).join('') : ''}
+                        ${project.video ? `<video src="${project.video}" controls class="w-full h-32 object-cover rounded mb-3"></video>` : ''}
+                        
+                        <ul class="text-white space-y-1 text-sm">
+                            ${project.details.map(detail => `
+                                <li class="flex items-center gap-2">
+                                    <span class="text-[#ff0000]">▸</span>
+                                    ${detail}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    return content;
+}
+
 const langOverlay = document.getElementById("lang-overlay");
 const langBtn = document.getElementById("change_language");
 let isEnglish = true;
@@ -300,30 +733,109 @@ langBtn.addEventListener("click", function() {
             });
         });
 
-        // Card expansion functionality
         const cardItems = document.querySelectorAll('.card-item');
+        const closeBtn = document.querySelector('.close-btn');
+        
+        function closeCard() {
+            cardItems.forEach(card => {
+                if (card.classList.contains('expanded')) {
+                    card.classList.remove('expanded');
+                    card.classList.add('closing');
+                    
+
+                    const cardContent = card.querySelector('.card-content');
+                    const expandedContent = card.querySelector('.expanded-content');
+                    if (expandedContent) expandedContent.remove();
+                    const cardImage = card.querySelector('.card-image');
+                    if (cardImage) cardImage.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        card.classList.remove('closing');
+
+                    }, 500);
+                }
+            });
+            closeBtn.classList.remove('show');
+        }
         
         cardItems.forEach(card => {
-            card.addEventListener('click', function() {
-                // Close any other expanded cards
+            card.addEventListener('click', function(e) {
+                if (this.classList.contains('expanded')) {
+                    e.stopPropagation();
+                    return;
+                }
+                
+                const cardType = this.getAttribute('data-card');
+                
                 cardItems.forEach(otherCard => {
                     if (otherCard !== this) {
                         otherCard.classList.remove('expanded');
                     }
                 });
                 
-                // Toggle expanded state on clicked card
                 this.classList.add('expanded');
+                closeBtn.classList.add('show');
+                
+                const existingContent = this.querySelector('.expanded-content');
+                if (existingContent) existingContent.remove();
+                
+                const cardImage = this.querySelector('.card-image');
+                if (cardImage) cardImage.style.display = 'none';
+                
+                const cardContent = this.querySelector('.card-content');
+                const expandedContentDiv = document.createElement('div');
+                expandedContentDiv.className = 'expanded-content p-6 overflow-y-auto max-h-[70vh]';
+                expandedContentDiv.innerHTML = generateCardContent(cardType);
+                
+                cardContent.appendChild(expandedContentDiv);
             });
         });
 
-        // Close expanded card when clicking outside
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeCard();
+        });
+
         document.addEventListener('click', function(event) {
             cardItems.forEach(card => {
-                if (!card.contains(event.target) && card.classList.contains('expanded')) {
-                    card.classList.remove('expanded');
+                if (!card.contains(event.target) && !closeBtn.contains(event.target) && card.classList.contains('expanded')) {
+                    closeCard();
                 }
             });
+        });
+
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImage = document.getElementById('lightbox-image');
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox-modal');
+            lightbox.classList.remove('active');
+        }
+
+        const lightboxClose = document.querySelector('.lightbox-close');
+        lightboxClose.addEventListener('click', closeLightbox);
+
+        const lightboxModal = document.getElementById('lightbox-modal');
+        lightboxModal.addEventListener('click', function(event) {
+            if (event.target === lightboxModal) {
+                closeLightbox();
+            }
+        });
+
+        const lightboxImage = document.getElementById('lightbox-image');
+        lightboxImage.addEventListener('click', function(event) {
+            event.stopPropagation();
+            closeLightbox();
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeLightbox();
+            }
         });
 
 </script>
