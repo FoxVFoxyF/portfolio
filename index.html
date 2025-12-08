@@ -119,7 +119,6 @@
         0 0 120px #265787;
 }
 
-/* Roblox accurate glow */
 .glow-border-roblox {
     border-radius: 8px;
     cursor: pointer;
@@ -127,13 +126,11 @@
     transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
     background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
     color: #fff;
-    /* base (no glow) */
     box-shadow: 0 0 0px #ff0000, 0 0 0px #b20000;
 }
 
 .glow-border-roblox:hover {
     transform: scale(1.05);
-    /* layered red glows to mimic Roblox branding */
     box-shadow: 0 0 18px rgba(255,0,0,0.85), 0 0 40px rgba(255,77,77,0.6), 0 0 120px rgba(178,0,0,0.45);
 }
 
@@ -250,7 +247,7 @@
     }
 }
 
-/* Lightbox Modal */
+
 .lightbox-modal {
     display: none;
     position: fixed;
@@ -296,7 +293,7 @@
     color: #fff;
     cursor: pointer;
     background: rgba(0, 0, 0, 0.7);
-    border: 2px solid #ff2a6d;
+    border: 2px solid transparent; /* will be set dynamically */
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -311,6 +308,7 @@
     background: rgba(0, 0, 0, 0.9);
     transform: rotate(90deg);
     box-shadow: 0 0 20px #ff2a6d;
+    border-color: #ff2a6d; /* hover remains red */
 }
 
 .lightbox-go-back {
@@ -353,6 +351,35 @@
         opacity: 1;
         transform: scale(1);
     }
+}
+
+/* Close button color themes + hover scale */
+.close-btn, .lightbox-close {
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border 0.12s ease;
+}
+.close-btn.blender, .lightbox-close.blender {
+    border: 2px solid #e87d0d !important;
+    box-shadow: 0 0 20px #e87d0d !important;
+}
+.close-btn.blender:hover, .lightbox-close.blender:hover {
+    transform: translateY(-50%) scale(1.08) rotate(90deg);
+    box-shadow: 0 0 30px #e87d0d !important;
+}
+.close-btn.unity, .lightbox-close.unity {
+    border: 2px solid #05d9e8 !important;
+    box-shadow: 0 0 20px #05d9e8 !important;
+}
+.close-btn.unity:hover, .lightbox-close.unity:hover {
+    transform: translateY(-50%) scale(1.08) rotate(90deg);
+    box-shadow: 0 0 30px #05d9e8 !important;
+}
+.close-btn.roblox, .lightbox-close.roblox {
+    border: 2px solid #ff0000 !important;
+    box-shadow: 0 0 20px #ff0000 !important;
+}
+.close-btn.roblox:hover, .lightbox-close.roblox:hover {
+    transform: translateY(-50%) scale(1.08) rotate(90deg);
+    box-shadow: 0 0 30px #ff0000 !important;
 }
 
 .clickable-image {
@@ -439,6 +466,7 @@
         <img id="lightbox-image" src="" alt="Enlarged image" style="display:none;">
         <video id="lightbox-video" style="display:none; width:100%; height:100%; object-fit:contain;" controls></video>
         <span class="lightbox-go-back" onclick="closeLightbox()">← Go Back</span>
+        <span id="sigma52" class="lightbox-close" onclick="closeLightbox()">✕</span>
     </div>
 </div>
 
@@ -505,7 +533,7 @@
         </div>
       </div>
       <div class="p-6 flex justify-center items-center card-content">
-        <span class="text-white text-sm h-16"></span>
+        <span class="text-white text-[2.5rem] font-bold h-16">Roblox</span>
       </div>
     </div>
 
@@ -619,12 +647,28 @@ const cardData = {
     },
 };
 
+function applyCloseBtnTheme(cardType) {
+    const themes = ['blender','unity','roblox'];
+    const sigma = document.getElementById('sigma52');
+    const closeBtns = document.getElementsByClassName('close-btn');
+
+    themes.forEach(t => {
+        if (sigma) sigma.classList.remove(t);
+        Array.from(closeBtns).forEach(el => el.classList.remove(t));
+    });
+
+    if (themes.includes(cardType)) {
+        if (sigma) sigma.classList.add(cardType);
+        Array.from(closeBtns).forEach(el => el.classList.add(cardType));
+    }
+}
 
 function generateCardContent(cardType) {
     const data = cardData[cardType];
     let content = '';
 
     if (cardType === 'blender') {
+        applyCloseBtnTheme('blender');
         content = `
             <div class="flex flex-col gap-6 w-full">
                 <h3 class="text-white text-2xl font-Rajdhani font-bold">${data.title}</h3>
@@ -633,7 +677,7 @@ function generateCardContent(cardType) {
                 <div class="grid grid-cols-2 gap-4">
                     <h4 class="col-span-2 text-white font-Rajdhani font-bold">Animations:</h4>
                     ${data.animations.map(anim => `
-                        <div class="video-thumbnail" onclick="openLightboxVideo('${anim.src}')">
+                        <div class="video-thumbnail" onclick="openLightboxVideo('${anim.src}','${cardType}')">
                             <video src="${anim.src}"></video>
                             <div class="video-play-icon">›</div>
                         </div>
@@ -658,6 +702,7 @@ function generateCardContent(cardType) {
             </div>
         `;
     } else if (cardType === 'unity') {
+        applyCloseBtnTheme('unity');
         content = `
             <div class="flex flex-col gap-6 w-full max-h-[70vh] overflow-y-auto">
                 <h3 class="text-white text-2xl font-Rajdhani font-bold">${data.title}</h3>
@@ -671,10 +716,10 @@ function generateCardContent(cardType) {
                         </div>
                         <p class="text-gray-400 mb-3">${project.description}</p>
                         
-                        ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-32 object-cover rounded mb-3 clickable-image" onclick="openLightbox('${project.image}')">` : ''}
-                        ${project.images ? project.images.map(img => `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}')">`).join('') : ''}
+                        ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-32 object-cover rounded mb-3 clickable-image" onclick="openLightbox('${project.image}','${cardType}')">` : ''}
+                        ${project.images ? project.images.map(img => `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}','${cardType}')">`).join('') : ''}
                         ${project.video ? `
-                            <div class="video-thumbnail mb-3" onclick="openLightboxVideo('${project.video}')">
+                            <div class="video-thumbnail mb-3" onclick="openLightboxVideo('${project.video}','${cardType}')">
                                 <video src="${project.video}"></video>
                                 <div class="video-play-icon">›</div>
                             </div>
@@ -695,6 +740,7 @@ function generateCardContent(cardType) {
             </div>
         `;
     } else if (cardType === 'roblox') {
+        applyCloseBtnTheme('roblox');
         content = `
             <div class="flex flex-col gap-6 w-full max-h-[70vh] overflow-y-auto">
                 <h3 class="text-white text-2xl font-Rajdhani font-bold">${data.title}</h3>
@@ -708,20 +754,19 @@ function generateCardContent(cardType) {
                         </div>
                         <p class="text-gray-400 mb-3">${project.description}</p>
                         
-                        ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-32 object-cover rounded mb-3 clickable-image" onclick="openLightbox('${project.image}')">` : ''}
+                        ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-32 object-cover rounded mb-3 clickable-image" onclick="openLightbox('${project.image}','${cardType}')">` : ''}
                         ${project.images ? project.images.map(img => {
-                            // Check if it's a video file
                             if (img.endsWith('.mp4') || img.endsWith('.webm') || img.endsWith('.mov')) {
-                                return `<div class="video-thumbnail mb-2" onclick="openLightboxVideo('${img}')">
+                                return `<div class="video-thumbnail mb-2" onclick="openLightboxVideo('${img}','${cardType}')">
                                     <video src="${img}"></video>
                                     <div class="video-play-icon">›</div>
                                 </div>`;
                             } else {
-                                return `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}')">`;
+                                return `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}','${cardType}')">`;
                             }
                         }).join('') : ''}
                         ${project.video ? `
-                            <div class="video-thumbnail mb-3" onclick="openLightboxVideo('${project.video}')">
+                            <div class="video-thumbnail mb-3" onclick="openLightboxVideo('${project.video}','${cardType}')">
                                 <video src="${project.video}"></video>
                                 <div class="video-play-icon">›</div>
                             </div>
@@ -875,25 +920,49 @@ langBtn.addEventListener("click", function() {
 
 
 
-        function openLightbox(imageSrc) {
+        function getColorForCard(cardType) {
+            switch (cardType) {
+                case 'blender': return '#e87d0d';
+                case 'unity': return '#05d9e8';
+                case 'roblox': return '#ff0000';
+                default: return '#05d9e8';
+            }
+        }
+
+        function applyLightboxColor(cardType) {
+            const color = getColorForCard(cardType);
+            const lightboxContent = document.querySelector('.lightbox-content');
+            const goBack = document.querySelector('.lightbox-go-back');
+            const closeBtnEl = document.querySelector('.lightbox-close');
+            if (lightboxContent) lightboxContent.style.border = `2px solid ${color}`;
+            if (goBack) goBack.style.border = `2px solid ${color}`;
+            if (closeBtnEl) {
+                closeBtnEl.style.border = `2px solid ${color}`;
+                closeBtnEl.style.boxShadow = `0 0 20px ${color}`;
+            }
+        }
+
+        function openLightbox(imageSrc, cardType='') {
             const lightbox = document.getElementById('lightbox-modal');
             const lightboxImage = document.getElementById('lightbox-image');
             const lightboxVideo = document.getElementById('lightbox-video');
             lightboxImage.style.display = 'block';
             lightboxVideo.style.display = 'none';
             lightboxImage.src = imageSrc;
+            applyLightboxColor(cardType);
             lightbox.classList.add('active');
         }
 
-        function openLightboxVideo(videoSrc) {
+        function openLightboxVideo(videoSrc, cardType='') {
             const lightbox = document.getElementById('lightbox-modal');
             const lightboxImage = document.getElementById('lightbox-image');
             const lightboxVideo = document.getElementById('lightbox-video');
             lightboxImage.style.display = 'none';
             lightboxVideo.style.display = 'block';
             lightboxVideo.src = videoSrc;
+            applyLightboxColor(cardType);
             lightbox.classList.add('active');
-            lightboxVideo.play();
+            try { lightboxVideo.play(); } catch(e){}
         }
 
         function closeLightbox() {
