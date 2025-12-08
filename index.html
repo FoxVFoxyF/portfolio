@@ -353,7 +353,7 @@
     }
 }
 
-/* Close button color themes + hover scale */
+
 .close-btn, .lightbox-close {
     transition: transform 0.12s ease, box-shadow 0.12s ease, border 0.12s ease;
 }
@@ -380,19 +380,6 @@
 .close-btn.roblox:hover, .lightbox-close.roblox:hover {
     transform: translateY(-50%) scale(1.08) rotate(90deg);
     box-shadow: 0 0 30px #ff0000 !important;
-}
-
-/* Global site root scaling */
-#site-root {
-    transition: transform 140ms ease;
-    transform-origin: top center;
-    width: 100%;
-}
-
-/* Make body center the scaled content */
-body {
-    display: flex;
-    justify-content: center;
 }
 
 .clickable-image {
@@ -472,8 +459,7 @@ body {
 
 </style>
 
-<div id="site-root">
-    <div id="lang-overlay"></div>
+<div id="lang-overlay"></div>
 
 <div id="lightbox-modal" class="lightbox-modal">
     <div class="lightbox-content">
@@ -547,7 +533,7 @@ body {
         </div>
       </div>
       <div class="p-6 flex justify-center items-center card-content">
-        <span class="text-white text-[2.5rem] font-bold h-16">Roblox</span>
+        <span class="text-white text-[2.5rem] h-16">Roblox</span>
       </div>
     </div>
 
@@ -666,11 +652,13 @@ function applyCloseBtnTheme(cardType) {
     const sigma = document.getElementById('sigma52');
     const closeBtns = document.getElementsByClassName('close-btn');
 
+    // remove any theme classes
     themes.forEach(t => {
         if (sigma) sigma.classList.remove(t);
         Array.from(closeBtns).forEach(el => el.classList.remove(t));
     });
 
+    // add selected theme class if valid
     if (themes.includes(cardType)) {
         if (sigma) sigma.classList.add(cardType);
         Array.from(closeBtns).forEach(el => el.classList.add(cardType));
@@ -960,6 +948,9 @@ langBtn.addEventListener("click", function() {
             const lightbox = document.getElementById('lightbox-modal');
             const lightboxImage = document.getElementById('lightbox-image');
             const lightboxVideo = document.getElementById('lightbox-video');
+            const sigma = document.getElementById('sigma52');
+            // hide the floating close button so it doesn't sit on top of the media
+            if (sigma) sigma.style.display = 'none';
             lightboxImage.style.display = 'block';
             lightboxVideo.style.display = 'none';
             lightboxImage.src = imageSrc;
@@ -971,6 +962,9 @@ langBtn.addEventListener("click", function() {
             const lightbox = document.getElementById('lightbox-modal');
             const lightboxImage = document.getElementById('lightbox-image');
             const lightboxVideo = document.getElementById('lightbox-video');
+            const sigma = document.getElementById('sigma52');
+            // hide the floating close button so it doesn't sit on top of the video player
+            if (sigma) sigma.style.display = 'none';
             lightboxImage.style.display = 'none';
             lightboxVideo.style.display = 'block';
             lightboxVideo.src = videoSrc;
@@ -982,8 +976,11 @@ langBtn.addEventListener("click", function() {
         function closeLightbox() {
             const lightbox = document.getElementById('lightbox-modal');
             const lightboxVideo = document.getElementById('lightbox-video');
+            const sigma = document.getElementById('sigma52');
             lightboxVideo.pause();
             lightbox.classList.remove('active');
+            // restore the floating close button display so it's available elsewhere
+            if (sigma) sigma.style.display = '';
         }
 
         const lightboxModal = document.getElementById('lightbox-modal');
