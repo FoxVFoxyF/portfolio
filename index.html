@@ -313,6 +313,32 @@
     box-shadow: 0 0 20px #ff2a6d;
 }
 
+.lightbox-go-back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #05d9e8;
+    border-radius: 8px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 1001;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.lightbox-go-back:hover {
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 0 20px #05d9e8;
+    transform: translateX(-5px);
+}
+
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -339,6 +365,51 @@
     filter: brightness(1.1);
 }
 
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 130px;
+    background: #0a0a0a;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+.video-thumbnail:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.video-thumbnail video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    z-index: 10;
+    transition: all 0.3s ease-in-out;
+}
+
+.video-thumbnail:hover .video-play-icon {
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%) scale(1.2);
+}
 
 </style>
 
@@ -363,19 +434,15 @@
 
 <div id="lang-overlay"></div>
 
-<!-- Lightbox Modal -->
 <div id="lightbox-modal" class="lightbox-modal">
     <div class="lightbox-content">
-        <img id="lightbox-image" src="" alt="Enlarged image">
-        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-image" src="" alt="Enlarged image" style="display:none;">
+        <video id="lightbox-video" style="display:none; width:100%; height:100%; object-fit:contain;" controls></video>
+        <span class="lightbox-go-back" onclick="closeLightbox()">← Go Back</span>
     </div>
 </div>
 
-
-    
-
     <nav class="bg-white text-black h-screen flex items-center justify-center flex-col">
-
 
     <div class="fixed top-5 right-5 z-50">
         <button id="change_language" class="px-5 py-2 bg-nice_gray text-white rounded transition-opacity duration-500 glow-border">
@@ -496,24 +563,11 @@ const cardData = {
                 details: [
                     "Booth model conversion to StressLevelZero",
                     "MarrowSDK rigging and setup",
-                    "Precise hitbox calibration",
+                    "Hitbox calibration",
                     "Bone structure adjustment",
                     "Boopable character parts"
                 ],
-                images: ["assets/images/placeholder-marrow-sdk1.png", "assets/images/placeholder-marrow-sdk2.png"]
-            },
-            {
-                num: "3",
-                title: "AI Learning & Simulation",
-                description: "Working on AI simulation and learning systems (in progress)",
-                details: [
-                    "AI movement simulation",
-                    "Machine learning model training",
-                    "Complex simulation environment setup",
-                    "High time investment required",
-                    "Ongoing learning project"
-                ],
-                note: "Project exceeded initial scope - requires significant time dedication"
+                video: "assets/videos/bonelab.mp4"
             }
         ]
     },
@@ -579,8 +633,9 @@ function generateCardContent(cardType) {
                 <div class="grid grid-cols-2 gap-4">
                     <h4 class="col-span-2 text-white font-Rajdhani font-bold">Animations:</h4>
                     ${data.animations.map(anim => `
-                        <div class="bg-[#0f0f0f] rounded overflow-hidden">
-                            <video src="${anim.src}" alt="${anim.alt}" class="w-full h-40 object-cover" autoplay muted loop playsinline></video>
+                        <div class="video-thumbnail" onclick="openLightboxVideo('${anim.src}')">
+                            <video src="${anim.src}"></video>
+                            <div class="video-play-icon">›</div>
                         </div>
                     `).join('')}
                 </div>
@@ -618,6 +673,12 @@ function generateCardContent(cardType) {
                         
                         ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-32 object-cover rounded mb-3 clickable-image" onclick="openLightbox('${project.image}')">` : ''}
                         ${project.images ? project.images.map(img => `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}')">`).join('') : ''}
+                        ${project.video ? `
+                            <div class="video-thumbnail mb-3" onclick="openLightboxVideo('${project.video}')">
+                                <video src="${project.video}"></video>
+                                <div class="video-play-icon">›</div>
+                            </div>
+                        ` : ''}
                         
                         <ul class="text-white space-y-1 text-sm">
                             ${project.details.map(detail => `
@@ -648,8 +709,23 @@ function generateCardContent(cardType) {
                         <p class="text-gray-400 mb-3">${project.description}</p>
                         
                         ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-32 object-cover rounded mb-3 clickable-image" onclick="openLightbox('${project.image}')">` : ''}
-                        ${project.images ? project.images.map(img => `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}')">`).join('') : ''}
-                        ${project.video ? `<video src="${project.video}" controls class="w-full h-32 object-cover rounded mb-3"></video>` : ''}
+                        ${project.images ? project.images.map(img => {
+                            // Check if it's a video file
+                            if (img.endsWith('.mp4') || img.endsWith('.webm') || img.endsWith('.mov')) {
+                                return `<div class="video-thumbnail mb-2" onclick="openLightboxVideo('${img}')">
+                                    <video src="${img}"></video>
+                                    <div class="video-play-icon">›</div>
+                                </div>`;
+                            } else {
+                                return `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}')">`;
+                            }
+                        }).join('') : ''}
+                        ${project.video ? `
+                            <div class="video-thumbnail mb-3" onclick="openLightboxVideo('${project.video}')">
+                                <video src="${project.video}"></video>
+                                <div class="video-play-icon">›</div>
+                            </div>
+                        ` : ''}
                         
                         <ul class="text-white space-y-1 text-sm">
                             ${project.details.map(detail => `
@@ -737,6 +813,7 @@ langBtn.addEventListener("click", function() {
         const closeBtn = document.querySelector('.close-btn');
         
         function closeCard() {
+            console.log("Closing card");
             cardItems.forEach(card => {
                 if (card.classList.contains('expanded')) {
                     card.classList.remove('expanded');
@@ -796,28 +873,35 @@ langBtn.addEventListener("click", function() {
             closeCard();
         });
 
-        document.addEventListener('click', function(event) {
-            cardItems.forEach(card => {
-                if (!card.contains(event.target) && !closeBtn.contains(event.target) && card.classList.contains('expanded')) {
-                    closeCard();
-                }
-            });
-        });
+
 
         function openLightbox(imageSrc) {
             const lightbox = document.getElementById('lightbox-modal');
             const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            lightboxImage.style.display = 'block';
+            lightboxVideo.style.display = 'none';
             lightboxImage.src = imageSrc;
             lightbox.classList.add('active');
         }
 
-        function closeLightbox() {
+        function openLightboxVideo(videoSrc) {
             const lightbox = document.getElementById('lightbox-modal');
-            lightbox.classList.remove('active');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            lightboxImage.style.display = 'none';
+            lightboxVideo.style.display = 'block';
+            lightboxVideo.src = videoSrc;
+            lightbox.classList.add('active');
+            lightboxVideo.play();
         }
 
-        const lightboxClose = document.querySelector('.lightbox-close');
-        lightboxClose.addEventListener('click', closeLightbox);
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            lightboxVideo.pause();
+            lightbox.classList.remove('active');
+        }
 
         const lightboxModal = document.getElementById('lightbox-modal');
         lightboxModal.addEventListener('click', function(event) {
@@ -830,6 +914,11 @@ langBtn.addEventListener("click", function() {
         lightboxImage.addEventListener('click', function(event) {
             event.stopPropagation();
             closeLightbox();
+        });
+
+        const lightboxVideo = document.getElementById('lightbox-video');
+        lightboxVideo.addEventListener('click', function(event) {
+            event.stopPropagation();
         });
 
         document.addEventListener('keydown', function(event) {
