@@ -382,6 +382,19 @@
     box-shadow: 0 0 30px #ff0000 !important;
 }
 
+/* Global site root scaling */
+#site-root {
+    transition: transform 140ms ease;
+    transform-origin: top center;
+    width: 100%;
+}
+
+/* Make body center the scaled content */
+body {
+    display: flex;
+    justify-content: center;
+}
+
 .clickable-image {
     cursor: pointer;
     transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
@@ -459,7 +472,8 @@
 
 </style>
 
-<div id="lang-overlay"></div>
+<div id="site-root">
+    <div id="lang-overlay"></div>
 
 <div id="lightbox-modal" class="lightbox-modal">
     <div class="lightbox-content">
