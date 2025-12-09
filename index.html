@@ -8,7 +8,7 @@
     <link rel="icon" href="assets/images/logo.ico" type="image/x-icon">
     <style type="text/tailwindcss">
       @theme {
-        --background-color-nice_gray: #171717;
+        --background-color-nice_gray: #141414;
       }
     </style>
     <style>
@@ -188,7 +188,7 @@
 .card-image.hidden {
     display: none;
 }
-
+/* __1 hide card */
 .card-item.expanded .card-image {
     display: none;
 }
@@ -533,7 +533,7 @@
         </div>
       </div>
       <div class="p-6 flex justify-center items-center card-content">
-        <span class="text-white text-[2.5rem] h-16">Roblox</span>
+        <span class="text-white text-[2.5rem] h-16 card-image">Roblox</span>
       </div>
     </div>
 
@@ -608,12 +608,10 @@ const cardData = {
                 title: "AI NPC Engine",
                 description: "Complete AI system with voice and chat integration",
                 details: [
-                    "Full Lua codebase for AI handling",
                     "Real-time TTS (Text-to-Speech) - RVC integration",
-                    "Real-time voice with Corona integration",
-                    "ChatGPT-powered conversation system",
+                    "2-LLM(Large Language Model) powered conversation system",
                     "Advanced NPC interactions",
-                    "Actions: sit, look, backaway, walk, interact with game"
+                    "Actions: sit, look, backaway, walk to, etc.."
                 ],
                 video: "assets/videos/placeholder-roblox-ai.mp4"
             },
@@ -624,8 +622,6 @@ const cardData = {
                 details: [
                     "Professional UI design",
                     "Responsive layouts",
-                    "Interactive elements",
-                    "Polish and optimization",
                     "User experience focused"
                 ],
                 image: "assets/images/placeholder-roblox-ui.png"
@@ -638,8 +634,7 @@ const cardData = {
                     "Accurate real-life mechanics",
                     "Advanced weapon systems",
                     "Physics-based gameplay",
-                    "Currently paused - can be resumed",
-                    "High-fidelity design"
+                    "Currently paused - can be resumed"
                 ],
                 images: ["assets/images/placeholder-roblox-fps.png", "assets/videos/placeholder-roblox-fps.mp4"]
             }
