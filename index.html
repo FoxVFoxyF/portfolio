@@ -481,7 +481,7 @@
 
 
 
-        <h1 id="_1" class="text-4xl font-bold">Welcome to My Portfolio</h1>
+        <h1 id="_1" class="text-4xl font-bold"></h1>
         <button id="go-next" class="mt-4 px-6 py-2 bg-nice_gray text-white rounded hover:bg-blue-600 glow-border ">
             Begin
         </button>
@@ -551,6 +551,32 @@
 
 
 <script>
+
+
+
+function typeWriter(element, text, speed, i = 0) {
+    if (i < text.length) {
+        const el = document.getElementById(element);
+        if (!el) return;
+        el.innerHTML += text.charAt(i);
+        setTimeout(() => typeWriter(element, text, speed, i + 1), speed);
+    }
+}
+
+var txt = "Welcome to My Portfolio";
+// start typing
+document.getElementById('_1').innerHTML = '';
+typeWriter("_1", txt, 70);
+
+
+
+
+
+
+
+
+
+
 const cardData = {
     blender: {
         title: "Blender",
