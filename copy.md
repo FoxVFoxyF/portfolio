@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>portfolio</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="icon" href="assets/images/logo.ico" type="image/x-icon">
+    <style type="text/tailwindcss">
+      @theme {
+        --background-color-nice_gray: #141414;
+      }
+    </style>
+    <style>
+        /* background: linear-gradient(90deg, #ff2a6d, #05d9e8, #d65bca) */
+       @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+        .font-Rajdhani {
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+
+
+.glitch {
+    position: relative;
+    color: #fff;
+    letter-spacing: 2px;
+    animation: glitch-animation 2s infinite;
+}
+::selection {
+    background: #ff2a6d;
+    color: #fff;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff2a6d;
+    animation: glitch-top 2s infinite linear;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #05d9e8;
+    animation: glitch-bottom 2s infinite linear;
+}
+
+@keyframes glitch-animation {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(2px, -2px); }
+    60% { transform: translate(-2px, -2px); }
+    80% { transform: translate(2px, 2px); }
+}
+
+@keyframes glitch-top {
+    0%, 20%, 40%, 60%, 80%, 100% { clip: rect(0, 9999px, 0, 0); }
+    10% { clip: rect(0, 9999px, 10px, 0); }
+    30% { clip: rect(10px, 9999px, 20px, 0); }
+    50% { clip: rect(20px, 9999px, 30px, 0); }
+    70% { clip: rect(0, 9999px, 10px, 0); }
+    90% { clip: rect(10px, 9999px, 20px, 0); }
+}
+
+@keyframes glitch-bottom {
+    0%, 20%, 40%, 60%, 80%, 100% { clip: rect(0, 9999px, 0, 0); }
+    10% { clip: rect(30px, 9999px, 40px, 0); }
+    30% { clip: rect(40px, 9999px, 50px, 0); }
+    50% { clip: rect(20px, 9999px, 30px, 0); }
+    70% { clip: rect(10px, 9999px, 20px, 0); }
+    90% { clip: rect(0, 9999px, 10px, 0); }
+}
+
+
+.glow-border {
+    border-radius: 8px;
+    background: #121212;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 0 0px #ff2a6d, 0 0 0px #ff2a6d, 0 0 0px #ff2a6d, 0 0 0px #ff2a6d;
+}
+
+.glow-border:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #05d9e8, 0 0 30px #05d9e8, 0 0 60px #05d9e8, 0 0 120px #05d9e8;
+}
+#change_language {
+    transition: opacity 0.5s ease-in-out, box-shadow 1.5s ease-in-out;
+}
+
+
+
+
+.glow-border-blender {
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 0 0px #e87d0d, 0 0 0px #265787, 0 0 0px #265787, 0 0 0px #265787;
+}
+
+.glow-border-blender:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 0 60px #e87d0d, 
+        0 0 120px #e87d0d, 
+        0 0 220px #265787, 
+        0 0 120px #265787;
+}
+
+.glow-border-roblox {
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    color: #fff;
+    box-shadow: 0 0 0px #ff0000, 0 0 0px #b20000;
+}
+
+.glow-border-roblox:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(255,0,0,0.85), 0 0 40px rgba(255,77,77,0.6), 0 0 120px rgba(178,0,0,0.45);
+}
+
+.glow-border-close-btn {
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 0 0px #e87d0d, 0 0 0px #265787, 0 0 0px #265787, 0 0 0px #265787;
+}
+
+.glow-border-close-bt:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 0 15px #f50000, 
+        0 0 30px #f50000, 
+        0 0 60px #f50000, 
+        0 0 120px #f50000;
+}
+
+.card-item {
+    position: relative;
+}
+
+.card-item.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    z-index: 100;
+    transition: all 0.5s ease-in-out;
+}
+
+@keyframes closeCard {
+    0% {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+    }
+    100% {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: translate(0, 0);
+        width: 100%;
+        height: auto;
+    }
+}
+
+.card-image.hidden {
+    display: none;
+}
+/* __1 hide card */
+.card-item.expanded .card-image {
+    display: none;
+}
+
+.close-btn {
+    position: fixed;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: #000000;
+    border: 2px solid #ff2a6d;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 101;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.close-btn.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    pointer-events: auto;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+.close-btn:hover {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate(20px, -20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    to {
+        opacity: 0;
+        transform: translate(20px, -20px);
+    }
+}
+
+
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding: 20px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.lightbox-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-content {
+    position: relative;
+    background-color: #0a0a0a;
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
+    border: 2px solid #05d9e8;
+    overflow: hidden;
+    animation: zoomIn 0.3s ease-in-out;
+}
+
+.lightbox-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid transparent; /* will be set dynamically */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 1001;
+}
+
+.lightbox-close:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: rotate(90deg);
+    box-shadow: 0 0 20px #ff2a6d;
+    border-color: #ff2a6d; /* hover remains red */
+}
+
+.lightbox-go-back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #05d9e8;
+    border-radius: 8px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    z-index: 1001;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.lightbox-go-back:hover {
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 0 20px #05d9e8;
+    transform: translateX(-5px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.close-btn, .lightbox-close {
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border 0.12s ease;
+}
+.close-btn.blender, .lightbox-close.blender {
+    border: 2px solid #e87d0d !important;
+    box-shadow: 0 0 20px #e87d0d !important;
+}
+.close-btn.blender:hover, .lightbox-close.blender:hover {
+    transform: translateY(-50%) scale(1.08) rotate(90deg);
+    box-shadow: 0 0 30px #e87d0d !important;
+}
+.close-btn.unity, .lightbox-close.unity {
+    border: 2px solid #05d9e8 !important;
+    box-shadow: 0 0 20px #05d9e8 !important;
+}
+.close-btn.unity:hover, .lightbox-close.unity:hover {
+    transform: translateY(-50%) scale(1.08) rotate(90deg);
+    box-shadow: 0 0 30px #05d9e8 !important;
+}
+.close-btn.roblox, .lightbox-close.roblox {
+    border: 2px solid #ff0000 !important;
+    box-shadow: 0 0 20px #ff0000 !important;
+}
+.close-btn.roblox:hover, .lightbox-close.roblox:hover {
+    transform: translateY(-50%) scale(1.08) rotate(90deg);
+    box-shadow: 0 0 30px #ff0000 !important;
+}
+
+.clickable-image {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+.clickable-image:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 130px;
+    background: #0a0a0a;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+.video-thumbnail:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.video-thumbnail video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    z-index: 10;
+    transition: all 0.3s ease-in-out;
+}
+
+.video-thumbnail:hover .video-play-icon {
+    background: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+</style>
+
+
+<style>
+#lang-overlay {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #121212;
+    z-index: 1000;
+    transition: left 0.5s ease-in-out;
+}
+
+
+#lang-overlay.left { left: -100%; }
+#lang-overlay.center { left: 0; }
+#lang-overlay.right { left: 100%; }
+
+</style>
+
+<div id="lang-overlay"></div>
+
+<div id="lightbox-modal" class="lightbox-modal">
+    <div class="lightbox-content">
+        <img id="lightbox-image" src="" alt="Enlarged image" style="display:none;">
+        <video id="lightbox-video" style="display:none; width:100%; height:100%; object-fit:contain;" controls></video>
+        <span class="lightbox-go-back" onclick="closeLightbox()">← Go Back</span>
+        <span id="sigma52" class="lightbox-close" onclick="closeLightbox()">✕</span>
+    </div>
+</div>
+
+    <nav class="bg-white text-black min-h-screen flex items-center justify-center flex-col p-4 sm:p-8">
+
+    <div class="fixed top-5 right-5 z-50">
+        <button id="change_language" class="px-3 py-1 sm:px-5 sm:py-2 bg-nice_gray text-white rounded transition-opacity duration-500 glow-border text-sm sm:text-base">
+            Zmień język
+        </button>
+    </div>
+
+
+
+
+        <h1 id="_1" class="text-2xl sm:text-4xl font-bold text-center"></h1>
+        <button id="go-next" class="mt-4 px-4 py-2 sm:px-6 sm:py-2 bg-nice_gray text-white rounded hover:bg-blue-600 glow-border text-sm sm:text-base">
+            Begin
+        </button>
+    </nav>
+
+<nav id="section-2" class="min-h-screen bg-nice_gray p-4 sm:p-10">
+      <button class="close-btn glow-border-close-bt hover:scale-105">✕</button>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 h-70% items-center justify-center">
+                <h2 id="_2" class="my-6 sm:my-10 w-full sm:w-1/2 mx-auto text-white text-center font-Rajdhani font-bold text-xl sm:text-2xl glitch" data-text="my work">my work</h2>
+    <div class="bg-[#121212] rounded shadow-md overflow-hidden transition-all duration-300 hover:scale-105 glow-border-blender card-item" data-card="blender">
+      <div class="bg-[#e87d0d] px-4 py-2 flex justify-between items-center w-full">
+        <span class="text-white font-Rajdhani font-bold">Blender</span>
+        <div class="flex space-x-2">
+          <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+          <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+          <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+        </div>
+      </div>
+      <div class="p-4 sm:p-6 flex justify-center items-center card-content">
+        <img src="assets/images/blender_logo_no_socket_white.png" alt="Blender" class="w-100% h-16 card-image">
+      </div>
+    </div>
+
+
+        <div class="bg-[#1c1c1c] rounded shadow-md overflow-hidden transition-all duration-300 hover:scale-105 glow-border card-item" data-card="unity">
+
+      <div class="bg-[#171717] px-4 py-2 flex justify-between items-center w-full">
+        <span class="text-white font-Rajdhani font-bold">Unity</span>
+        <div class="flex space-x-2">
+          <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+          <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+          <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+        </div>
+      </div>
+      <div class="p-4 sm:p-6 flex justify-center items-center card-content">
+        <img src="assets/images/U_Logo_Small_White_RGB_1C-1589x537-ada00fa.png" alt="Blender" class="w-100% h-16 card-image">
+      </div>
+    </div>
+
+
+    <div class="bg-[#1c1c1c] rounded shadow-md overflow-hidden transition-all duration-300 hover:scale-105 glow-border-roblox card-item" data-card="roblox">
+
+      <div class="bg-[#171717] px-4 py-2 flex justify-between items-center w-full">
+        <span class="text-white font-Rajdhani font-bold">Roblox</span>
+        <div class="flex space-x-2">
+            
+          <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+          <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+          <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+        </div>
+      </div>
+      <div class="p-4 sm:p-6 flex justify-center items-center card-content">
+        <span class="text-white text-2xl sm:text-4xl h-16 card-image">Roblox</span>
+      </div>
+    </div>
+
+
+
+<div class="col-span-1 sm:col-span-2 lg:col-span-4 mt-10 text-center text-white font-Rajdhani font-bold text-2xl sm:text-3xl">
+  <h1 id="_3">About Me</h1>
+  
+</div>
+<div class="col-span-full mx-auto max-w-4xl from-zinc-900 to-zinc-800 rounded-2xl p-8 text-center shadow-inner shadow-white/5">
+<p class="text-zinc-200 text-lg leading-relaxed">
+"i hold on to things no one else has, and no one dares to create"
+</p>
+</div>
+
+
+
+
+    
+  </div>
+</nav>
+  
+
+
+<script>
+
+
+
+function typeWriter(element, text, speed, i = 0) {
+    if (i < text.length) {
+        const el = document.getElementById(element);
+        if (!el) return;
+        el.innerHTML += text.charAt(i);
+        setTimeout(() => typeWriter(element, text, speed, i + 1), speed);
+    }
+}
+
+var txt = "Welcome to My Portfolio";
+// start typing
+document.getElementById('_1').innerHTML = '';
+typeWriter("_1", txt, 70);
+
+
+
+
+
+
+
+
+
+
+const cardData = {
+    blender: {
+        title: "Blender",
+        description: "Animations & Physics Simulations",
+        animations: [
+            { src: "https://i.imgur.com/DZgHWJF.mp4", alt: "Animation 1" },
+            { src: "https://i.imgur.com/OoK6zdO.mp4", alt: "Animation 2" }
+        ],
+        info: "Watched extensive tutorials covering tools, interface, and basic concepts",
+        experience: [
+            "Navigation and interface",
+            "Tool fundamentals",
+            "Animation basics", 
+            "Physics simulations",
+            "Rendering techniques"
+        ]
+    },
+    unity: {
+        title: "Unity",
+        description: "VRChat Avatars & Bonelab Mods",
+        projects: [
+            {
+                num: "1",
+                title: "VRChat Avatar Creation",
+                description: "Creating custom avatars using VRChat SDK with advanced features",
+                details: [
+                    "Building avatars from Booth models",
+                    "Outfit toggles system",
+                    "Make-up and cosmetics",
+                    "Custom toys and accessories"
+                ],
+                images: ["assets/images/ex1.png", "assets/images/ex2.png", "assets/images/ex3.png"]
+            },
+            {
+                num: "2",
+                title: "Avatar Conversion (Booth → MarrowSDK)",
+                description: "Converting VRChat avatars to Stress Level Zero format",
+                details: [
+                    "Booth model conversion to StressLevelZero",
+                    "MarrowSDK rigging and setup",
+                    "Hitbox calibration",
+                    "Bone structure adjustment",
+                    "Boopable character parts"
+                ],
+                video: "https://i.imgur.com/TTL3v12.mp4"
+            }
+        ]
+    },
+    roblox: {
+        title: "Roblox",
+        description: "Game Development & AI Systems",
+        projects: [
+            {
+                num: "1",
+                title: "AI NPC Engine",
+                description: "Complete AI system with voice and chat integration",
+                details: [
+                    "Real-time TTS (Text-to-Speech) - RVC integration",
+                    "2-LLM(Large Language Model) powered conversation system",
+                    "Advanced NPC interactions",
+                    "Actions: sit, look, backaway, walk to, etc.."
+                ],
+                video: "assets/videos/placeholder-roblox-ai.mp4"
+            },
+            {
+                num: "2",
+                title: "Advanced UI Design",
+                description: "High-quality user interface development",
+                details: [
+                    "Professional UI design",
+                    "Responsive layouts",
+                    "User experience focused"
+                ],
+                image: "assets/images/placeholder-roblox-ui.png"
+            },
+            {
+                num: "3",
+                title: "FPS Game (In Development)",
+                description: "Realistic first-person shooter game",
+                details: [
+                    "Accurate real-life mechanics",
+                    "Advanced weapon systems",
+                    "Physics-based gameplay",
+                    "Currently paused - can be resumed"
+                ],
+                images: ["assets/images/placeholder-roblox-fps.png", "assets/videos/placeholder-roblox-fps.mp4"]
+            }
+        ]
+    },
+};
+
+function applyCloseBtnTheme(cardType) {
+    const themes = ['blender','unity','roblox'];
+    const sigma = document.getElementById('sigma52');
+    const closeBtns = document.getElementsByClassName('close-btn');
+
+    // remove any theme classes
+    themes.forEach(t => {
+        if (sigma) sigma.classList.remove(t);
+        Array.from(closeBtns).forEach(el => el.classList.remove(t));
+    });
+
+    // add selected theme class if valid
+    if (themes.includes(cardType)) {
+        if (sigma) sigma.classList.add(cardType);
+        Array.from(closeBtns).forEach(el => el.classList.add(cardType));
+    }
+}
+
+function generateCardContent(cardType) {
+    const data = cardData[cardType];
+    let content = '';
+
+    if (cardType === 'blender') {
+        applyCloseBtnTheme('blender');
+        content = `
+            <div class="flex flex-col gap-6 w-full">
+                <h3 class="text-white text-2xl font-Rajdhani font-bold">${data.title}</h3>
+                <p class="text-gray-300">${data.description}</p>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <h4 class="col-span-2 text-white font-Rajdhani font-bold">Animations:</h4>
+                    ${data.animations.map(anim => `
+                        <div class="video-thumbnail" onclick="openLightboxVideo('${anim.src}','${cardType}')">
+                            <video src="${anim.src}"></video>
+                            <div class="video-play-icon">›</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="border-l-2 border-[#e87d0d] pl-4">
+                    <p class="text-gray-300 italic">${data.info}</p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-Rajdhani font-bold mb-2">Experience:</h4>
+                    <ul class="text-white space-y-2">
+                        ${data.experience.map(exp => `
+                            <li class="flex items-center gap-2">
+                                <span class="text-[#e87d0d]">▸</span>
+                                ${exp}
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            </div>
+        `;
+    } else if (cardType === 'unity') {
+        applyCloseBtnTheme('unity');
+        content = `
+            <div class="flex flex-col gap-6 w-full max-h-[70vh] overflow-y-auto">
+                <h3 class="text-white text-2xl font-Rajdhani font-bold">${data.title}</h3>
+                <p class="text-gray-300">${data.description}</p>
+                
+                ${data.projects.map(project => `
+                    <div class="bg-[#0f0f0f] rounded p-4 border-l-4 border-[#05d9e8]">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-[#05d9e8] text-black px-3 py-1 rounded-full font-bold text-sm">${project.num}</span>
+                            <h4 class="text-white font-Rajdhani font-bold text-lg">${project.title}</h4>
+                        </div>
+                        <p class="text-gray-400 mb-3">${project.description}</p>
+                        
+                        ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-32 object-cover rounded mb-3 clickable-image" onclick="openLightbox('${project.image}','${cardType}')">` : ''}
+                        ${project.images ? project.images.map(img => `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}','${cardType}')">`).join('') : ''}
+                        ${project.video ? `
+                            <div class="video-thumbnail mb-3" onclick="openLightboxVideo('${project.video}','${cardType}')">
+                                <video src="${project.video}"></video>
+                                <div class="video-play-icon">›</div>
+                            </div>
+                        ` : ''}
+                        
+                        <ul class="text-white space-y-1 text-sm">
+                            ${project.details.map(detail => `
+                                <li class="flex items-center gap-2">
+                                    <span class="text-[#05d9e8]">▸</span>
+                                    ${detail}
+                                </li>
+                            `).join('')}
+                        </ul>
+                        
+                        ${project.note ? `<p class="text-gray-500 text-sm italic mt-2">💡 ${project.note}</p>` : ''}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } else if (cardType === 'roblox') {
+        applyCloseBtnTheme('roblox');
+        content = `
+            <div class="flex flex-col gap-6 w-full max-h-[70vh] overflow-y-auto">
+                <h3 class="text-white text-2xl font-Rajdhani font-bold">${data.title}</h3>
+                <p class="text-gray-300">${data.description}</p>
+                
+                ${data.projects.map(project => `
+                    <div class="bg-[#0f0f0f] rounded p-4 border-l-4 border-[#ff0000]">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="bg-[#ff0000] text-white px-3 py-1 rounded-full font-bold text-sm">${project.num}</span>
+                            <h4 class="text-white font-Rajdhani font-bold text-lg">${project.title}</h4>
+                        </div>
+                        <p class="text-gray-400 mb-3">${project.description}</p>
+                        
+                        ${project.image ? `<img src="${project.image}" alt="${project.title}" class="w-full h-32 object-cover rounded mb-3 clickable-image" onclick="openLightbox('${project.image}','${cardType}')">` : ''}
+                        ${project.images ? project.images.map(img => {
+                            if (img.endsWith('.mp4') || img.endsWith('.webm') || img.endsWith('.mov')) {
+                                return `<div class="video-thumbnail mb-2" onclick="openLightboxVideo('${img}','${cardType}')">
+                                    <video src="${img}"></video>
+                                    <div class="video-play-icon">›</div>
+                                </div>`;
+                            } else {
+                                return `<img src="${img}" alt="project" class="w-full h-32 object-cover rounded mb-2 clickable-image" onclick="openLightbox('${img}','${cardType}')">`;
+                            }
+                        }).join('') : ''}
+                        ${project.video ? `
+                            <div class="video-thumbnail mb-3" onclick="openLightboxVideo('${project.video}','${cardType}')">
+                                <video src="${project.video}"></video>
+                                <div class="video-play-icon">›</div>
+                            </div>
+                        ` : ''}
+                        
+                        <ul class="text-white space-y-1 text-sm">
+                            ${project.details.map(detail => `
+                                <li class="flex items-center gap-2">
+                                    <span class="text-[#ff0000]">▸</span>
+                                    ${detail}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    return content;
+}
+
+const langOverlay = document.getElementById("lang-overlay");
+const langBtn = document.getElementById("change_language");
+let isEnglish = true;
+
+let position = "left";
+let animating = false;
+
+langOverlay.classList.add(position);
+
+langBtn.addEventListener("click", function() {
+    if (animating) return;
+    animating = true;
+
+    langOverlay.classList.remove(position);
+    langOverlay.classList.add("center");
+
+    setTimeout(() => {
+        if (isEnglish) {
+            document.getElementById("_1").textContent = "Witam w moim portfolio";
+            langBtn.textContent = "Change Language";
+            document.getElementById("go-next").textContent = "Zaczynajmy!!";
+            document.getElementById("_2").textContent = "moje prace";
+            document.getElementById("_2").setAttribute("data-text", "moje prace");
+        } else {
+            document.getElementById("_1").textContent = "Welcome to My Portfolio";
+            langBtn.textContent = "Zmień język";
+            document.getElementById("go-next").textContent = "Begin";
+            document.getElementById("_2").textContent = "my work";
+            document.getElementById("_2").setAttribute("data-text", "my work");
+
+        }
+        isEnglish = !isEnglish;
+
+        langOverlay.classList.remove("center");
+        if (position === "left") {
+            langOverlay.classList.add("right");
+            position = "right";
+        } else if (position === "right") {
+            langOverlay.classList.add("left");
+            position = "left";
+        }
+
+        setTimeout(() => {
+            animating = false;
+        }, 500);
+    }, 500);
+});
+
+ window.addEventListener("scroll", () => {
+            const scrollY = window.scrollY;
+            const firstNavHeight = window.innerHeight;
+
+            if (scrollY > firstNavHeight / 3) {
+                langBtn.style.opacity = 0;
+            } else {
+                langBtn.style.opacity = 1;
+            }
+        });
+
+        document.getElementById("go-next").addEventListener("click", function() {
+            document.getElementById("section-2").scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+
+        const cardItems = document.querySelectorAll('.card-item');
+        const closeBtn = document.querySelector('.close-btn');
+        
+        function closeCard() {
+            console.log("Closing card");
+            cardItems.forEach(card => {
+                if (card.classList.contains('expanded')) {
+                    card.classList.remove('expanded');
+                    card.classList.add('closing');
+                    
+
+                    const cardContent = card.querySelector('.card-content');
+                    const expandedContent = card.querySelector('.expanded-content');
+                    if (expandedContent) expandedContent.remove();
+                    const cardImage = card.querySelector('.card-image');
+                    if (cardImage) cardImage.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        card.classList.remove('closing');
+
+                    }, 500);
+                }
+            });
+            closeBtn.classList.remove('show');
+        }
+        
+        cardItems.forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (this.classList.contains('expanded')) {
+                    e.stopPropagation();
+                    return;
+                }
+                
+                const cardType = this.getAttribute('data-card');
+                
+                cardItems.forEach(otherCard => {
+                    if (otherCard !== this) {
+                        otherCard.classList.remove('expanded');
+                    }
+                });
+                
+                this.classList.add('expanded');
+                closeBtn.classList.add('show');
+                
+                const existingContent = this.querySelector('.expanded-content');
+                if (existingContent) existingContent.remove();
+                
+                const cardImage = this.querySelector('.card-image');
+                if (cardImage) cardImage.style.display = 'none';
+
+                
+                const cardContent = this.querySelector('.card-content');
+                const expandedContentDiv = document.createElement('div');
+                expandedContentDiv.className = 'expanded-content p-6 overflow-y-auto max-h-[70vh]';
+                expandedContentDiv.innerHTML = generateCardContent(cardType);
+                
+                cardContent.appendChild(expandedContentDiv);
+            });
+        });
+
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeCard();
+        });
+
+
+
+        function getColorForCard(cardType) {
+            switch (cardType) {
+                case 'blender': return '#e87d0d';
+                case 'unity': return '#05d9e8';
+                case 'roblox': return '#ff0000';
+                default: return '#05d9e8';
+            }
+        }
+
+        function applyLightboxColor(cardType) {
+            const color = getColorForCard(cardType);
+            const lightboxContent = document.querySelector('.lightbox-content');
+            const goBack = document.querySelector('.lightbox-go-back');
+            const closeBtnEl = document.querySelector('.lightbox-close');
+            if (lightboxContent) lightboxContent.style.border = `2px solid ${color}`;
+            if (goBack) goBack.style.border = `2px solid ${color}`;
+            if (closeBtnEl) {
+                closeBtnEl.style.border = `2px solid ${color}`;
+                closeBtnEl.style.boxShadow = `0 0 20px ${color}`;
+            }
+        }
+
+        function openLightbox(imageSrc, cardType='') {
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            const sigma = document.getElementById('sigma52');
+            // hide the floating close button so it doesn't sit on top of the media
+            if (sigma) sigma.style.display = 'none';
+            lightboxImage.style.display = 'block';
+            lightboxVideo.style.display = 'none';
+            lightboxImage.src = imageSrc;
+            applyLightboxColor(cardType);
+            lightbox.classList.add('active');
+        }
+
+        function openLightboxVideo(videoSrc, cardType='') {
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImage = document.getElementById('lightbox-image');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            const sigma = document.getElementById('sigma52');
+            // hide the floating close button so it doesn't sit on top of the video player
+            if (sigma) sigma.style.display = 'none';
+            lightboxImage.style.display = 'none';
+            lightboxVideo.style.display = 'block';
+            lightboxVideo.src = videoSrc;
+            applyLightboxColor(cardType);
+            lightbox.classList.add('active');
+            try { lightboxVideo.play(); } catch(e){}
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxVideo = document.getElementById('lightbox-video');
+            const sigma = document.getElementById('sigma52');
+            lightboxVideo.pause();
+            lightbox.classList.remove('active');
+            // restore the floating close button display so it's available elsewhere
+            if (sigma) sigma.style.display = '';
+        }
+
+        const lightboxModal = document.getElementById('lightbox-modal');
+        lightboxModal.addEventListener('click', function(event) {
+            if (event.target === lightboxModal) {
+                closeLightbox();
+            }
+        });
+
+        const lightboxImage = document.getElementById('lightbox-image');
+        lightboxImage.addEventListener('click', function(event) {
+            event.stopPropagation();
+            closeLightbox();
+        });
+
+        const lightboxVideo = document.getElementById('lightbox-video');
+        lightboxVideo.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+</script>
+</body>
+</html>
