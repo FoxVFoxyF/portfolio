@@ -108,6 +108,7 @@
             position: relative;
             overflow: hidden;
         }
+        
 
         nav:first-of-type::before {
             content: '';
@@ -407,6 +408,188 @@
             color: rgba(255, 255, 255, 0.7);
             line-height: 1.6;
         }
+        /* ==================== FALLING JAPANESE CHARACTERS ==================== */
+.falling-kanji-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9997;
+    overflow: hidden;
+}
+
+.falling-kanji {
+    position: absolute;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 900;
+    opacity: 0;
+    user-select: none;
+    text-shadow: 
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 20px currentColor;
+    animation: kanjiFloat linear forwards;
+    z-index: 1;
+}
+
+/* Different sizes */
+.kanji-small { font-size: 24px; }
+.kanji-medium { font-size: 36px; }
+.kanji-large { font-size: 48px; }
+
+/* Different colors */
+.kanji-cyan { color: #05d9e8; }
+.kanji-pink { color: #ff2a6d; }
+.kanji-purple { color: #d65bca; }
+.kanji-orange { color: #ff5e00; }
+.kanji-white { color: #ffffff; }
+
+/* Floating animations */
+@keyframes kanjiFloat {
+    0% {
+        transform: translateY(-100px) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) translateX(var(--end-x)) rotate(var(--end-rotate));
+        opacity: 0;
+    }
+}
+
+/* Gentle sway effect */
+@keyframes kanjiSway {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10px);
+    }
+}
+
+/* Glow pulse effect */
+@keyframes kanjiGlow {
+    0%, 100% {
+        filter: brightness(1) drop-shadow(0 0 5px currentColor);
+    }
+    50% {
+        filter: brightness(1.5) drop-shadow(0 0 15px currentColor);
+    }
+}
+
+/* Twirl effect */
+@keyframes kanjiTwirl {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Blur trail effect */
+.falling-kanji::after {
+    content: attr(data-char);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: inherit;
+    filter: blur(8px);
+    opacity: 0.5;
+    z-index: -1;
+    animation: trailFade 0.5s linear forwards;
+}
+
+@keyframes trailFade {
+    0% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+}
+
+/* Interactive hover effect */
+.falling-kanji:hover {
+    animation-play-state: paused;
+    filter: brightness(2) drop-shadow(0 0 20px currentColor);
+    transform: scale(1.2);
+    z-index: 9999;
+}
+
+/* Snow-like accumulation (optional) */
+.kanji-accumulation {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(transparent, rgba(5, 217, 232, 0.05));
+    pointer-events: none;
+    transition: height 0.3s ease;
+}
+
+/* ==================== FLOATING SYMBOLS ==================== */
+.floating-symbol {
+    position: fixed;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.03);
+    text-shadow: 0 0 30px rgba(5, 217, 232, 0.1);
+    z-index: 9996;
+    pointer-events: none;
+    user-select: none;
+    animation: symbolFloat 30s infinite linear;
+}
+
+@keyframes symbolFloat {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+    }
+}
+
+/* ==================== BACKGROUND PARTICLES ==================== */
+.floating-particle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: #05d9e8;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9995;
+    opacity: 0.3;
+    filter: blur(1px);
+    animation: particleFloat 20s infinite linear;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
 
         /* Card specific colors */
         .cyber-card[data-card="blender"] {
@@ -697,6 +880,20 @@
     </style>
 </head>
 <body>
+
+    <!-- Falling Japanese Characters -->
+<div id="falling-kanji-container" class="falling-kanji-container"></div>
+
+<!-- Accumulation effect -->
+<div id="kanji-accumulation" class="kanji-accumulation"></div>
+
+<!-- Floating background symbols -->
+<div class="floating-symbol" style="left: 5%; animation-delay: 0s;">侍</div>
+<div class="floating-symbol" style="left: 15%; animation-delay: -5s;">忍</div>
+<div class="floating-symbol" style="left: 25%; animation-delay: -10s;">刀</div>
+<div class="floating-symbol" style="right: 5%; animation-delay: -2s;">龍</div>
+<div class="floating-symbol" style="right: 15%; animation-delay: -7s;">鬼</div>
+<div class="floating-symbol" style="right: 25%; animation-delay: -12s;">電</div>
     <!-- Background elements -->
     <div class="japanese-pattern"></div>
     <div class="scan-line"></div>
@@ -831,6 +1028,293 @@
     <div class="floating-kanji" style="right: 25%; animation-delay: -12s;">電</div>
 
 <script>
+
+    // Japanese characters for falling effect (kanji and kana)
+const fallingChars = [
+    // Kanji
+    '侍', '忍', '刀', '龍', '鬼', '影', '電', '脳', '幻', '夢', '闇', '光',
+    '剣', '火', '水', '風', '雷', '岩', '雪', '月', '星', '陽', '空', '海',
+    '心', '魂', '神', '仏', '妖', '魔', '技', '術', '芸', '能', '力', '気',
+    
+    // Hiragana
+    'あ', 'い', 'う', 'え', 'お',
+    'か', 'き', 'く', 'け', 'こ',
+    'さ', 'し', 'す', 'せ', 'そ',
+    
+    // Katakana
+    'ア', 'イ', 'ウ', 'エ', 'オ',
+    'カ', 'キ', 'ク', 'ケ', 'コ',
+    'サ', 'シ', 'ス', 'セ', 'ソ',
+    
+    // Special symbols
+    '❄', '✦', '✧', '♡', '★', '☆', '☯', '☮', '☸', '🜺'
+];
+
+// Colors for falling characters
+const kanjiColors = ['kanji-cyan', 'kanji-pink', 'kanji-purple', 'kanji-orange', 'kanji-white'];
+const kanjiSizes = ['kanji-small', 'kanji-medium', 'kanji-large'];
+
+// Initialize falling characters
+function initFallingKanji() {
+    const container = document.getElementById('falling-kanji-container');
+    const accumulation = document.getElementById('kanji-accumulation');
+    
+    let accumulationHeight = 0;
+    
+    // Create initial batch of characters
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => createFallingKanji(container), i * 300);
+    }
+    
+    // Continuous creation
+    setInterval(() => {
+        if (document.hasFocus()) { // Only create if tab is active
+            createFallingKanji(container);
+            
+            // Gradually increase accumulation
+            accumulationHeight = Math.min(accumulationHeight + 0.01, 10);
+            accumulation.style.height = `${accumulationHeight}%`;
+        }
+    }, 800);
+    
+    // Reduce accumulation over time
+    setInterval(() => {
+        if (accumulationHeight > 0) {
+            accumulationHeight = Math.max(accumulationHeight - 0.05, 0);
+            accumulation.style.height = `${accumulationHeight}%`;
+        }
+    }, 10000);
+}
+
+// Create a single falling character
+function createFallingKanji(container) {
+    const kanji = document.createElement('div');
+    kanji.className = 'falling-kanji';
+    
+    // Random character
+    const char = fallingChars[Math.floor(Math.random() * fallingChars.length)];
+    kanji.textContent = char;
+    kanji.setAttribute('data-char', char);
+    
+    // Random properties
+    const sizeClass = kanjiSizes[Math.floor(Math.random() * kanjiSizes.length)];
+    const colorClass = kanjiColors[Math.floor(Math.random() * kanjiColors.length)];
+    
+    kanji.classList.add(sizeClass, colorClass);
+    
+    // Random starting position
+    const startX = Math.random() * 100;
+    kanji.style.left = `${startX}%`;
+    kanji.style.top = '-50px';
+    
+    // Random end position (gentle drift)
+    const endX = (Math.random() * 200 - 100); // -100px to +100px drift
+    const endRotate = Math.random() * 360;
+    
+    kanji.style.setProperty('--end-x', `${endX}px`);
+    kanji.style.setProperty('--end-rotate', `${endRotate}deg`);
+    
+    // Random animation
+    const duration = Math.random() * 15 + 10; // 10-25 seconds
+    const delay = Math.random() * 5;
+    
+    kanji.style.animationDuration = `${duration}s`;
+    kanji.style.animationDelay = `${delay}s`;
+    
+    // Add extra effects randomly
+    if (Math.random() > 0.7) {
+        kanji.style.animation += `, kanjiSway ${Math.random() * 3 + 2}s ease-in-out infinite`;
+    }
+    
+    if (Math.random() > 0.8) {
+        kanji.style.animation += `, kanjiGlow ${Math.random() * 2 + 1}s ease-in-out infinite`;
+    }
+    
+    if (Math.random() > 0.9) {
+        kanji.style.animation += `, kanjiTwirl ${Math.random() * 10 + 5}s linear infinite`;
+    }
+    
+    // Add hover interaction
+    kanji.addEventListener('mouseenter', function() {
+        this.style.animationPlayState = 'paused';
+        this.style.transform = 'scale(1.5)';
+        this.style.filter = 'brightness(2) drop-shadow(0 0 30px currentColor)';
+        this.style.zIndex = '10000';
+        
+        // Create ripple effect
+        createRippleEffect(this);
+    });
+    
+    kanji.addEventListener('mouseleave', function() {
+        this.style.animationPlayState = 'running';
+        this.style.transform = '';
+        this.style.filter = '';
+        this.style.zIndex = '';
+    });
+    
+    // Remove after animation completes
+    setTimeout(() => {
+        if (kanji.parentNode) {
+            kanji.parentNode.removeChild(kanji);
+        }
+    }, (duration + delay) * 1000);
+    
+    container.appendChild(kanji);
+    return kanji;
+}
+
+// Ripple effect when character is hovered
+function createRippleEffect(element) {
+    const char = element.textContent;
+    const color = getComputedStyle(element).color;
+    const rect = element.getBoundingClientRect();
+    
+    for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+            const ripple = document.createElement('div');
+            ripple.className = 'falling-kanji';
+            ripple.textContent = char;
+            ripple.setAttribute('data-char', char);
+            ripple.style.color = color;
+            ripple.style.fontSize = getComputedStyle(element).fontSize;
+            ripple.style.left = `${rect.left + rect.width/2}px`;
+            ripple.style.top = `${rect.top + rect.height/2}px`;
+            ripple.style.position = 'fixed';
+            ripple.style.zIndex = '9998';
+            
+            // Random direction
+            const angle = (i / 6) * Math.PI * 2;
+            const distance = 100;
+            const endX = Math.cos(angle) * distance;
+            const endY = Math.sin(angle) * distance;
+            
+            ripple.style.setProperty('--end-x', `${endX}px`);
+            ripple.style.setProperty('--end-rotate', `${Math.random() * 360}deg`);
+            ripple.style.animation = `kanjiFloat 2s ease-out forwards`;
+            
+            document.getElementById('falling-kanji-container').appendChild(ripple);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
+            }, 2000);
+        }, i * 100);
+    }
+}
+
+// Create floating particles in background
+function createBackgroundParticles() {
+    const container = document.getElementById('falling-kanji-container');
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'floating-particle';
+        
+        // Random properties
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        if (Math.random() > 0.5) {
+            particle.style.background = '#ff2a6d';
+        }
+        
+        const size = Math.random() * 3 + 1;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        const duration = Math.random() * 15 + 15;
+        const delay = Math.random() * 10;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        container.appendChild(particle);
+    }
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    // Start with delay for better UX
+    setTimeout(() => {
+        initFallingKanji();
+        createBackgroundParticles();
+        
+        // Wind effect on mouse move
+let windStrength = 0;
+let targetWind = 0;
+
+
+        
+        // Mouse leave resets wind
+document.addEventListener('mousemove', (e) => {
+    const centerX = window.innerWidth / 2;
+    targetWind = (e.clientX - centerX) / centerX * 30;
+});
+
+
+function applyWind() {
+    windStrength += (targetWind - windStrength) * 0.05;
+
+    document.querySelectorAll('.falling-kanji').forEach(k => {
+        k.style.transform = `translateX(${windStrength}px)`;
+    });
+
+    requestAnimationFrame(applyWind);
+}
+
+applyWind();
+
+        
+        // Click creates burst of characters
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('falling-kanji')) return;
+            
+            const container = document.getElementById('falling-kanji-container');
+            const burstCount = 8;
+            
+            for (let i = 0; i < burstCount; i++) {
+                setTimeout(() => {
+                    const kanji = document.createElement('div');
+                    kanji.className = 'falling-kanji';
+                    kanji.textContent = fallingChars[Math.floor(Math.random() * fallingChars.length)];
+                    kanji.classList.add(
+                        kanjiSizes[Math.floor(Math.random() * kanjiSizes.length)],
+                        kanjiColors[Math.floor(Math.random() * kanjiColors.length)]
+                    );
+                    
+                    kanji.style.left = `${e.clientX}px`;
+                    kanji.style.top = `${e.clientY}px`;
+                    kanji.style.position = 'fixed';
+                    
+                    // Burst outward
+                    const angle = (i / burstCount) * Math.PI * 2;
+                    const distance = 150;
+                    const endX = Math.cos(angle) * distance;
+                    
+                    kanji.style.setProperty('--end-x', `${endX}px`);
+                    kanji.style.setProperty('--end-rotate', `${Math.random() * 720}deg`);
+                    kanji.style.animation = `kanjiFloat 3s ease-out forwards`;
+                    
+                    container.appendChild(kanji);
+                    
+                    setTimeout(() => {
+                        if (kanji.parentNode) kanji.parentNode.removeChild(kanji);
+                    }, 3000);
+                }, i * 50);
+            }
+        });
+    }, 1000);
+});
+
+// Adjust on window resize
+window.addEventListener('resize', function() {
+    // Remove all falling characters and restart
+    const container = document.getElementById('falling-kanji-container');
+    if (container) {
+        const kanji = container.querySelectorAll('.falling-kanji');
+        kanji.forEach(k => k.remove());
+    }
+});
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     createMatrixRain();
@@ -1259,6 +1743,8 @@ document.getElementById('cyber-lightbox').addEventListener('click', function(e) 
         closeLightbox();
     }
 });
+
+
 </script>
 </body>
 </html>
