@@ -944,31 +944,25 @@
         }
 
         /* Expanded card content */
-.expanded-content {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 1000px;
-    max-height: 80vh;
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(20px);
-    border-radius: 20px; /* większy radius dla ładniejszego okrągłego wyglądu */
-    padding: 3rem;
-    overflow-y: auto;
-    z-index: 1000;
-    display: none;
-    animation: expandCard 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-    /* Gradient border trick */
-    border: 2px solid transparent;
-    background-image: linear-gradient(rgba(10,10,10,0.95), rgba(10,10,10,0.95)),
-                      linear-gradient(45deg, var(--color1), var(--color2));
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-}
-
+        .expanded-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 80vh;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid;
+            border-image: linear-gradient(45deg, var(--color1), var(--color2)) 1;
+            border-radius: 12px;
+            padding: 3rem;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            animation: expandCard 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
         @keyframes expandCard {
             from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
@@ -998,52 +992,36 @@
             display: flex;
         }
 
-.cyber-lightbox-content {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-    background: rgba(15, 15, 15, 0.95);
-    border-radius: 20px; /* większy radius, żeby było ładnie okrągłe */
-    overflow: hidden;
-    
-    /* Gradient border trick */
-    border: 2px solid transparent;
-    background-image: linear-gradient(rgba(15,15,15,0.95), rgba(15,15,15,0.95)),
-                      linear-gradient(45deg, #ff2a6d, #05d9e8);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-}
+        .cyber-lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: rgba(15, 15, 15, 0.95);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff2a6d, #05d9e8) 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-.cyber-lightbox-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 50%;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 2001;
-
-    /* Gradient border trick */
-    border: 2px solid transparent;
-    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
-                      linear-gradient(45deg, #ff2a6d, #05d9e8);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-}
-
-.cyber-lightbox-close:hover {
-    transform: scale(1.1) rotate(90deg);
-    box-shadow: 0 0 20px rgba(255, 42, 109, 0.5);
-}
-
+        .cyber-lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #ff2a6d, #05d9e8) 1;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2001;
+        }
 
         .cyber-lightbox-close:hover {
             transform: rotate(90deg) scale(1.1);
@@ -1834,7 +1812,7 @@ function expandCard(cardType) {
         content += `
             <div class="space-y-8 max-h-[60vh] overflow-y-auto pr-4">
                 ${data.projects.map(project => `
-                    <div class="bg-gray-1000/50 rounded-lg p-6 border-l-4" style="border-color: var(--color1);">
+                    <div class="bg-gray-900/50 rounded-lg p-6 border-l-4" style="border-color: var(--color1);">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-Orbitron" style="background: linear-gradient(45deg, var(--color1), var(--color2));">
                                 ${project.num}
@@ -1878,7 +1856,7 @@ function expandCard(cardType) {
         content += `
             <div class="space-y-8 max-h-[60vh] overflow-y-auto pr-4">
                 ${data.projects.map(project => `
-                    <div class="bg-gray-1000/50 rounded-lg p-6 border-l-4" style="border-color: var(--color1);">
+                    <div class="bg-gray-900/50 rounded-lg p-6 border-l-4" style="border-color: var(--color1);">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-Orbitron" style="background: linear-gradient(45deg, var(--color1), var(--color2));">
                                 ${project.num}
@@ -1986,11 +1964,11 @@ function updateLanguage() {
         },
         'go-next': {
             en: 'Begin Journey',
-            pl: 'Zaczynajmy już!!'
+            pl: 'Rozpocznij podróż'
         },
         '_2': {
             en: 'My Digital Creations',
-            pl: 'Moje Prace'
+            pl: 'Moje cyfrowe dzieła'
         },
         '_3': {
             en: 'About The Creator',
