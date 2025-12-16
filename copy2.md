@@ -33,218 +33,7 @@
             color: #fff;
             overflow-x: hidden;
             position: relative;
-            opacity: 0;
-            animation: bodyFadeIn 0.5s ease 1s forwards;
         }
-
-        @keyframes bodyFadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-                .monitor-intro {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 999999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transition: opacity 1s ease 3s;
-        }
-
-        .monitor-intro.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .monitor-frame {
-            width: 80vw;
-            height: 70vh;
-            background: #111;
-            border: 20px solid #222;
-            border-radius: 20px;
-            box-shadow: 
-                0 0 0 2px #05d9e8,
-                0 0 50px rgba(5, 217, 232, 0.5),
-                inset 0 0 50px rgba(0, 0, 0, 0.8);
-            position: relative;
-            overflow: hidden;
-            transform: scale(0.8);
-            animation: monitorAppear 1.5s ease forwards;
-        }
-
-        .monitor-screen {
-            width: 100%;
-            height: 100%;
-            background: #050505;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            animation: screenBoot 2s ease 1.5s forwards;
-        }
-
-        .monitor-bezel {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 4px solid #333;
-            border-radius: 10px;
-            pointer-events: none;
-        }
-
-        .monitor-logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            color: #05d9e8;
-            text-shadow: 0 0 20px #05d9e8;
-            opacity: 0;
-            animation: logoGlow 2s ease 2s forwards;
-        }
-
-        .monitor-base {
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 40px;
-            background: #222;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .monitor-base::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 20px;
-            background: #333;
-            border-radius: 5px 5px 0 0;
-        }
-
-        .screen-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            animation: contentFadeIn 0.6s ease 2.2s forwards;
-        }
-
-        .scan-line-intro {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #05d9e8, transparent);
-            box-shadow: 0 0 20px #05d9e8;
-            opacity: 0;
-            animation: scanMoveIntro 2s linear 2s forwards;
-        }
-
-        @keyframes monitorAppear {
-            0% {
-                transform: scale(0.8) translateY(100px);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes screenBoot {
-            0% {
-                opacity: 0;
-                filter: brightness(0);
-            }
-            50% {
-                opacity: 0.5;
-                filter: brightness(0.5);
-            }
-            100% {
-                opacity: 1;
-                filter: brightness(1);
-            }
-        }
-
-        @keyframes logoGlow {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.5);
-            }
-            50% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.1);
-            }
-            100% {
-                opacity: 0.3;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        @keyframes scanMoveIntro {
-            0% {
-                top: 0%;
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                top: 100%;
-                opacity: 0;
-            }
-        }
-
-        @keyframes contentFadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Zoom effect */
-        .monitor-intro.zoom-out {
-            animation: zoomToFullscreen 2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
-        }
-
-        @keyframes zoomToFullscreen {
-            0% {
-                transform: scale(1);
-                border-radius: 20px;
-            }
-            50% {
-                transform: scale(1.2);
-                border-radius: 10px;
-            }
-            100% {
-                transform: scale(100);
-                border-radius: 0;
-                opacity: 0;
-            }
-        }
-
 
         /* Scan line effect */
         .scan-line {
@@ -1092,44 +881,19 @@
 </head>
 <body>
 
-    <!-- Monitor Intro Effect -->
-    <div class="monitor-intro" id="monitorIntro">
-        <div class="monitor-frame">
-            <div class="monitor-bezel"></div>
-            <div class="monitor-screen">
-                <div class="scan-line-intro"></div>
-                <div class="monitor-logo">SYSTEM BOOT</div>
-                
-                <!-- Miniature version of your portfolio content -->
-                <div class="screen-content">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                        <h1 style="font-family: 'Orbitron', sans-serif; font-size: 1.5rem; margin-bottom: 8rem;">
-                            PORTFOLIO SYSTEM
-                        </h1>
-                        <div style="font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; opacity: 0.7;">
-                            Initializing digital interface...
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="monitor-base"></div>
-    </div>
-
     <!-- Falling Japanese Characters -->
-    <div id="falling-kanji-container" class="falling-kanji-container"></div>
+<div id="falling-kanji-container" class="falling-kanji-container"></div>
 
-    <!-- Accumulation effect -->
-    <div id="kanji-accumulation" class="kanji-accumulation"></div>
+<!-- Accumulation effect -->
+<div id="kanji-accumulation" class="kanji-accumulation"></div>
 
-    <!-- Floating background symbols -->
-    <div class="floating-symbol" style="left: 5%; animation-delay: 0s;">侍</div>
-    <div class="floating-symbol" style="left: 15%; animation-delay: -5s;">忍</div>
-    <div class="floating-symbol" style="left: 25%; animation-delay: -10s;">刀</div>
-    <div class="floating-symbol" style="right: 5%; animation-delay: -2s;">龍</div>
-    <div class="floating-symbol" style="right: 15%; animation-delay: -7s;">鬼</div>
-    <div class="floating-symbol" style="right: 25%; animation-delay: -12s;">電</div>
-    
+<!-- Floating background symbols -->
+<div class="floating-symbol" style="left: 5%; animation-delay: 0s;">侍</div>
+<div class="floating-symbol" style="left: 15%; animation-delay: -5s;">忍</div>
+<div class="floating-symbol" style="left: 25%; animation-delay: -10s;">刀</div>
+<div class="floating-symbol" style="right: 5%; animation-delay: -2s;">龍</div>
+<div class="floating-symbol" style="right: 15%; animation-delay: -7s;">鬼</div>
+<div class="floating-symbol" style="right: 25%; animation-delay: -12s;">電</div>
     <!-- Background elements -->
     <div class="japanese-pattern"></div>
     <div class="scan-line"></div>
@@ -1162,7 +926,7 @@
 
         <div class="text-center space-y-8 px-4">
             <h1 id="_1" class="text-5xl md:text-7xl font-Orbitron font-black glitch" data-text="Welcome to My Portfolio">
-                
+                Welcome to My Portfolio
             </h1>
             
             <div class="font-Japanese text-2xl opacity-50 tracking-widest">
@@ -1264,78 +1028,6 @@
     <div class="floating-kanji" style="right: 25%; animation-delay: -12s;">電</div>
 
 <script>
-
-
-    // Monitor intro effect
-    document.addEventListener('DOMContentLoaded', function() {
-        const monitorIntro = document.getElementById('monitorIntro');
-        
-        // Start the monitor sequence
-        setTimeout(() => {
-            // First, fade out the monitor
-            monitorIntro.classList.add('fade-out');
-            
-            // Then zoom into the screen
-            setTimeout(() => {
-                monitorIntro.classList.add('zoom-out');
-                
-                // Finally remove the monitor
-                setTimeout(() => {
-                    monitorIntro.style.display = 'none';
-
-
-                    
-                    function typeTitle() {
-                    const title = document.getElementById('_1');
-                    const text = title.getAttribute('data-text');
-                    title.textContent = '';
-                    
-                    let i = 0;
-                    function typeChar() {
-                        if (i < text.length) {
-                            title.textContent += text.charAt(i);
-                            i++;
-                            setTimeout(typeChar, 50);
-                        }
-                    }
-                    setTimeout(typeChar, 1000);
-                }
-                    
-                    // Start the rest of the animations
-                    initFallingKanji();
-                    createBackgroundParticles();
-                    createMatrixRain();
-                    typeTitle();
-                    
-                    // Start the wind effect
-                    applyWind();
-                }, 2000);
-            }, 1000);
-        }, 4000); // Total monitor display time
-        
-        // Start the monitor animations immediately
-        monitorIntro.style.display = 'flex';
-    });
-
-    // Wind effect functions (keep your existing wind effect code)
-    let windStrength = 0;
-    let targetWind = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        const centerX = window.innerWidth / 2;
-        targetWind = (e.clientX - centerX) / centerX * 30;
-    });
-
-    function applyWind() {
-        windStrength += (targetWind - windStrength) * 0.05;
-
-        document.querySelectorAll('.falling-kanji').forEach(k => {
-            k.style.transform = `translateX(${windStrength}px)`;
-        });
-
-        requestAnimationFrame(applyWind);
-    }
-
 
     // Japanese characters for falling effect (kanji and kana)
 const fallingChars = [
@@ -1658,8 +1350,22 @@ function createMatrixRain() {
     document.head.appendChild(style);
 }
 
-
-
+// Typewriter effect for title
+function typeTitle() {
+    const title = document.getElementById('_1');
+    const text = title.getAttribute('data-text');
+    title.textContent = '';
+    
+    let i = 0;
+    function typeChar() {
+        if (i < text.length) {
+            title.textContent += text.charAt(i);
+            i++;
+            setTimeout(typeChar, 100);
+        }
+    }
+    setTimeout(typeChar, 1000);
+}
 
 // Card data (same as before)
 const cardData = {
