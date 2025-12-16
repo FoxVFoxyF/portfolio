@@ -902,26 +902,31 @@
         }
 
         /* Close button - REDESIGNED */
-        .cyber-close-btn {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
-            border: 2px solid;
-            border-image: linear-gradient(45deg, #ff2a6d, #05d9e8) 1;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1001;
-            transition: all 0.3s ease;
-        }
+.cyber-close-btn {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: rgba(10, 10, 10, 0.9);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    
+    /* Gradient border trick */
+    border: 2px solid transparent;
+    background-image: linear-gradient(rgba(10,10,10,0.9), rgba(10,10,10,0.9)),
+                      linear-gradient(45deg, #ff2a6d, #05d9e8);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
 
         .cyber-close-btn:hover {
             transform: rotate(90deg) scale(1.1);
