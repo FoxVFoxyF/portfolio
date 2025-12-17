@@ -1297,9 +1297,14 @@
     margin-top: 1rem;
 }
 
-.panic-main-message,
-.fatal-error-square {
+.panic-main-message{
     text-shadow: 0 0 40px red;
+}
+
+@keyframes moveLeft {
+    to {
+        transform: translate(calc(-50% - 300px), -50%);
+    }
 }
 
 .fatal-error-square {
@@ -1309,15 +1314,18 @@
     transform: translate(-50%, -50%);
     width: 200px;
     height: 200px;
-    background: red;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid red;
+    border-radius: 10px;
     display: flex;
     align-items: center;
+    text-align: center;
     justify-content: center;
     opacity: 0;
     animation:
         appear 2.1s linear 2.1s forwards,
         panicFlicker 0.7s linear 2.05s forwards,
-        disappear 0.7s ease 3.5s forwards;
+        moveLeft 0.5s linear 4.5s forwards
 }
 
 @keyframes appear {
@@ -1346,7 +1354,7 @@
     align-items: center;
     gap: 2rem;
     opacity: 0;
-    animation: appear 0.5s ease 6s forwards;
+    animation: appear 0.5s ease 5s forwards;
 }
 
 .fatal-error-box {
@@ -1364,6 +1372,7 @@
     font-family: 'Rajdhani', monospace;
     font-size: 1.2rem;
     line-height: 1.5;
+    padding-left: 250px;
 }
 
 .japanese-error {
@@ -1412,9 +1421,6 @@
         
         <!-- Wide horizontal div -->
         <div class="panic-wide-div">
-            <div class="fatal-error-box">
-                <div class="fatal-error-text">FATAL ERROR</div>
-            </div>
             <div class="system-text">
                 <div>Kernel panic mode – load address 0xDEADBEEF – status: CRITICAL</div>
                 <div class="japanese-error">致命的エラー</div>
@@ -2240,6 +2246,48 @@ document.getElementById('cyber-lightbox').addEventListener('click', function(e) 
         closeLightbox();
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const uiRoot = document.getElementById('ui-root');
+  if (!uiRoot) return;
+
+
+
+// tworzymy overlay
+const overlay = document.createElement('div');
+overlay.style.position = 'fixed';
+overlay.style.inset = '0';
+overlay.style.display = 'grid';
+overlay.style.gridTemplateColumns = 'repeat(10, 1fr)';
+overlay.style.gridTemplateRows = 'repeat(100, 1fr)';
+overlay.style.gap = '1px';
+overlay.style.zIndex = '10000';
+overlay.style.pointerEvents = 'none';
+uiRoot.appendChild(overlay);
+
+const rows = 100;
+const cols = 10;
+
+const cooldown = 11000; // 2 sekundy
+for (let i = 0; i < rows * cols; i++) {
+  const div = document.createElement('div');
+  div.style.background = '#ff69b4';
+  div.style.width = '100%';
+  div.style.height = '100%';
+  div.style.transition = 'opacity 0.3s linear';
+  div.style.opacity = '1';
+  overlay.appendChild(div);
+
+  setTimeout(() => {
+    div.style.opacity = '0';
+  }, cooldown + i * 5); // zaczyna się po 2s
+}
+
+// usuń overlay po zakończeniu animacji
+setTimeout(() => {
+  overlay.remove();
+}, rows * cols * 20 + 500); // trochę bufora po ostatnim divie
+  });
 
 
 </script>
