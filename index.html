@@ -771,7 +771,7 @@
     z-index: 9999;
 }
 
-/* Snow-like accumulation (optional) */
+
 .kanji-accumulation {
     position: absolute;
     bottom: 0;
@@ -2263,6 +2263,7 @@ overlay.style.gridTemplateRows = 'repeat(100, 1fr)';
 overlay.style.gap = '1.5px';
 overlay.style.zIndex = '10000';
 overlay.style.pointerEvents = 'none';
+
 uiRoot.appendChild(overlay);
 
 const rows = 100;
@@ -2271,7 +2272,7 @@ const cols = 10;
 const cooldown = 11500; // 2 sekundy
 for (let i = 0; i < rows * cols; i++) {
   const div = document.createElement('div');
-  div.style.background = '#1f0104';
+  div.style.background = '#220D3D';
   div.style.width = '100%';
   div.style.height = '100%';
   div.style.transition = 'opacity 0.3s linear';
