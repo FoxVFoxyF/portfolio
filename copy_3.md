@@ -64,8 +64,8 @@
         }
 
         .monitor-frame {
-            width: 80vw;
-            height: 70vh;
+            width: min(80vw, 80vw);
+            height: min(70vh, 70vh);
             background: #111;
             border: 20px solid #222;
             border-radius: 20px;
@@ -77,6 +77,15 @@
             overflow: hidden;
             transform: scale(0.8);
             animation: monitorAppear 1.5s ease forwards;
+        }
+
+        @media (max-width: 768px) {
+            .monitor-frame {
+                width: 90vw;
+                height: 60vh;
+                border: 10px solid #222;
+                border-radius: 10px;
+            }
         }
 
         .monitor-screen {
@@ -508,9 +517,9 @@
         /* Cards grid */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -944,25 +953,49 @@
         }
 
         /* Expanded card content */
-        .expanded-content {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 1000px;
-            max-height: 80vh;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid;
-            border-image: linear-gradient(45deg, var(--color1), var(--color2)) 1;
-            border-radius: 12px;
-            padding: 3rem;
-            overflow-y: auto;
-            z-index: 1000;
-            display: none;
-            animation: expandCard 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+.expanded-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    max-width: 1300px;
+    max-height: 80vh;
+    background: #000;
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 3rem;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    animation: expandCard 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    /* Gradient border trick */
+    border: 2px solid transparent;
+    background-image: linear-gradient(rgba(15,15,15,0.95), rgba(15,15,15,0.95)),
+                      linear-gradient(45deg, #ff2a6d, #05d9e8);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+.expanded-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.expanded-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.expanded-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff2a6d, #05d9e8);
+    border-radius: 4px;
+}
+
+.expanded-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #d65bca, #ff5e00);
+}
+
 
         @keyframes expandCard {
             from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
@@ -970,6 +1003,22 @@
         }
 
         .expanded-content.show {
+            display: block;
+        }
+
+        /* Backdrop for blur effect */
+        .backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            display: none;
+        }
+
+        .backdrop.show {
             display: block;
         }
 
@@ -992,36 +1041,52 @@
             display: flex;
         }
 
-        .cyber-lightbox-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            background: rgba(15, 15, 15, 0.95);
-            border: 2px solid;
-            border-image: linear-gradient(45deg, #ff2a6d, #05d9e8) 1;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+.cyber-lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    background: rgba(15, 15, 15, 0.95);
+    border-radius: 20px; /* większy radius, żeby było ładnie okrągłe */
+    overflow: hidden;
+    
+    /* Gradient border trick */
+    border: 2px solid transparent;
+    background-image: linear-gradient(rgba(15,15,15,0.95), rgba(15,15,15,0.95)),
+                      linear-gradient(45deg, #ff2a6d, #05d9e8);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
 
-        .cyber-lightbox-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 40px;
-            height: 40px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid;
-            border-image: linear-gradient(45deg, #ff2a6d, #05d9e8) 1;
-            border-radius: 50%;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 2001;
-        }
+.cyber-lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2001;
+
+    /* Gradient border trick */
+    border: 2px solid transparent;
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+                      linear-gradient(45deg, #ff2a6d, #05d9e8);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+}
+
+.cyber-lightbox-close:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 0 20px rgba(255, 42, 109, 0.5);
+}
+
 
         .cyber-lightbox-close:hover {
             transform: rotate(90deg) scale(1.1);
@@ -1092,6 +1157,18 @@
         ::selection {
             background: rgba(255, 42, 109, 0.5);
             color: white;
+        /* Main content appearance animation */
+        .main-content {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .main-content.appear {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
         }
     </style>
 </head>
@@ -1160,6 +1237,7 @@
     </div>
 
     <!-- First section -->
+    <div class="main-content">
     <nav class="min-h-screen flex flex-col items-center justify-center relative z-10">
         <button id="change_language" class="cyber-button" onclick="showLanguageOverlay()">
             Change Language
@@ -1257,6 +1335,9 @@
         </div>
     </section>
 
+    <!-- Backdrop for blur effect -->
+    <div id="backdrop" class="backdrop"></div>
+
     <!-- Expanded content container -->
     <div id="expanded-content" class="expanded-content"></div>
 
@@ -1293,12 +1374,17 @@
                     function typeTitle() {
                     const title = document.getElementById('_1');
                     const text = title.getAttribute('data-text');
-                    title.textContent = '';
+                    title.innerHTML = '';
                     
                     let i = 0;
                     function typeChar() {
                         if (i < text.length) {
-                            title.textContent += text.charAt(i);
+                            const span = document.createElement('span');
+                            span.textContent = text.charAt(i);
+                            span.style.opacity = '0';
+                            span.style.transition = 'opacity 0.3s ease';
+                            title.appendChild(span);
+                            setTimeout(() => span.style.opacity = '1', 10);
                             i++;
                             setTimeout(typeChar, 50);
                         }
@@ -1375,7 +1461,7 @@ function initFallingKanji() {
     let accumulationHeight = 0;
     
     // Create initial batch of characters
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 5; i++) {
         setTimeout(() => createFallingKanji(container), i * 300);
     }
     
@@ -1388,7 +1474,7 @@ function initFallingKanji() {
             accumulationHeight = Math.min(accumulationHeight + 0.01, 10);
             accumulation.style.height = `${accumulationHeight}%`;
         }
-    }, 800);
+    }, 2000);
     
     // Reduce accumulation over time
     setInterval(() => {
@@ -1734,9 +1820,8 @@ const cardData = {
             {
                 num: "2",
                 title: "Advanced UI Design",
-                description: "High-quality user interface development",
+                description: "User interface development",
                 details: [
-                    "Professional UI design",
                     "Responsive layouts",
                     "User experience focused"
                 ],
@@ -1750,9 +1835,8 @@ const cardData = {
                     "Accurate real-life mechanics",
                     "Advanced weapon systems",
                     "Physics-based gameplay",
-                    "Currently paused - can be resumed"
-                ],
-                images: ["assets/images/placeholder-roblox-fps.png", "assets/videos/placeholder-roblox-fps.mp4"]
+                    "Currently paused"
+                ]
             }
         ]
     }
@@ -1812,10 +1896,10 @@ function expandCard(cardType) {
         content += `
             <div class="space-y-8 max-h-[60vh] overflow-y-auto pr-4">
                 ${data.projects.map(project => `
-                    <div class="bg-gray-900/50 rounded-lg p-6 border-l-4" style="border-color: var(--color1);">
+                    <div class="bg-gray-1000/50 rounded-lg p-6 border-l-4" style="border-color: var(--color1);">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-Orbitron" style="background: linear-gradient(45deg, var(--color1), var(--color2));">
-                                ${project.num}
+                                •
                             </div>
                             <h4 class="text-2xl font-Orbitron">${project.title}</h4>
                         </div>
@@ -1856,10 +1940,10 @@ function expandCard(cardType) {
         content += `
             <div class="space-y-8 max-h-[60vh] overflow-y-auto pr-4">
                 ${data.projects.map(project => `
-                    <div class="bg-gray-900/50 rounded-lg p-6 border-l-4" style="border-color: var(--color1);">
+                    <div class="bg-gray-1000/50 rounded-lg p-6 border-l-4" style="border-color: var(--color1);">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-Orbitron" style="background: linear-gradient(45deg, var(--color1), var(--color2));">
-                                ${project.num}
+                                •
                             </div>
                             <h4 class="text-2xl font-Orbitron">${project.title}</h4>
                         </div>
@@ -1918,8 +2002,9 @@ function expandCard(cardType) {
     expandedContent.classList.add('show');
     closeBtn.classList.add('show');
     
-    // Scroll to expanded content
-    expandedContent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Add blur to background
+    document.getElementById('backdrop').classList.add('show');
+    
 }
 
 function getColor(cardType, index) {
@@ -1937,6 +2022,9 @@ function closeExpandedContent() {
     
     expandedContent.classList.remove('show');
     closeBtn.classList.remove('show');
+    
+    // Remove blur from background
+    document.getElementById('backdrop').classList.remove('show');
 }
 
 // Language functions
@@ -1964,11 +2052,11 @@ function updateLanguage() {
         },
         'go-next': {
             en: 'Begin Journey',
-            pl: 'Rozpocznij podróż'
+            pl: 'Zaczynajmy już!!'
         },
         '_2': {
             en: 'My Digital Creations',
-            pl: 'Moje cyfrowe dzieła'
+            pl: 'Moje Prace'
         },
         '_3': {
             en: 'About The Creator',
