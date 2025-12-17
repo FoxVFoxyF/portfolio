@@ -1424,7 +1424,7 @@
             <div class="system-text">
                 <div>Kernel panic mode – load address 0xDEADBEEF – status: CRITICAL</div>
                 <div class="japanese-error">致命的エラー</div>
-                <div class="loading-text">loading<span class="dots"></span></div>
+                <div class="loading-text">loading simple webview<span class="dots"></span></div>
             </div>
         </div>
     </div>
@@ -2260,7 +2260,7 @@ overlay.style.inset = '0';
 overlay.style.display = 'grid';
 overlay.style.gridTemplateColumns = 'repeat(10, 1fr)';
 overlay.style.gridTemplateRows = 'repeat(100, 1fr)';
-overlay.style.gap = '1px';
+overlay.style.gap = '1.5px';
 overlay.style.zIndex = '10000';
 overlay.style.pointerEvents = 'none';
 uiRoot.appendChild(overlay);
@@ -2268,10 +2268,10 @@ uiRoot.appendChild(overlay);
 const rows = 100;
 const cols = 10;
 
-const cooldown = 11000; // 2 sekundy
+const cooldown = 11500; // 2 sekundy
 for (let i = 0; i < rows * cols; i++) {
   const div = document.createElement('div');
-  div.style.background = '#ff69b4';
+  div.style.background = '#1f0104';
   div.style.width = '100%';
   div.style.height = '100%';
   div.style.transition = 'opacity 0.3s linear';
