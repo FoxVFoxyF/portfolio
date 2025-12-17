@@ -64,8 +64,8 @@
         }
 
         .monitor-frame {
-            width: 80vw;
-            height: 70vh;
+            width: min(80vw, 80vw);
+            height: min(70vh, 70vh);
             background: #111;
             border: 20px solid #222;
             border-radius: 20px;
@@ -77,6 +77,15 @@
             overflow: hidden;
             transform: scale(0.8);
             animation: monitorAppear 1.5s ease forwards;
+        }
+
+        @media (max-width: 768px) {
+            .monitor-frame {
+                width: 90vw;
+                height: 60vh;
+                border: 10px solid #222;
+                border-radius: 10px;
+            }
         }
 
         .monitor-screen {
@@ -952,7 +961,7 @@
     width: 95%;
     max-width: 1300px;
     max-height: 80vh;
-    background: rgba(10, 10, 10, 0.95);
+    background: #000;
     backdrop-filter: blur(20px);
     border-radius: 20px;
     padding: 3rem;
@@ -963,10 +972,28 @@
 
     /* Gradient border trick */
     border: 2px solid transparent;
-    background-image: linear-gradient(rgba(10,10,10,0.95), rgba(10,10,10,0.95)),
-                      linear-gradient(45deg, var(--color1), var(--color2));
+    background-image: linear-gradient(rgba(15,15,15,0.95), rgba(15,15,15,0.95)),
+                      linear-gradient(45deg, #ff2a6d, #05d9e8);
     background-origin: border-box;
     background-clip: padding-box, border-box;
+}
+
+.expanded-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.expanded-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.expanded-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff2a6d, #05d9e8);
+    border-radius: 4px;
+}
+
+.expanded-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #d65bca, #ff5e00);
 }
 
 
@@ -1421,7 +1448,7 @@ function initFallingKanji() {
     let accumulationHeight = 0;
     
     // Create initial batch of characters
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 5; i++) {
         setTimeout(() => createFallingKanji(container), i * 300);
     }
     
@@ -1434,7 +1461,7 @@ function initFallingKanji() {
             accumulationHeight = Math.min(accumulationHeight + 0.01, 10);
             accumulation.style.height = `${accumulationHeight}%`;
         }
-    }, 800);
+    }, 2000);
     
     // Reduce accumulation over time
     setInterval(() => {
@@ -1859,7 +1886,7 @@ function expandCard(cardType) {
                     <div class="bg-gray-1000/50 rounded-lg p-6 border-l-4" style="border-color: var(--color1);">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-Orbitron" style="background: linear-gradient(45deg, var(--color1), var(--color2));">
-                                ${project.num}
+                                •
                             </div>
                             <h4 class="text-2xl font-Orbitron">${project.title}</h4>
                         </div>
@@ -1903,7 +1930,7 @@ function expandCard(cardType) {
                     <div class="bg-gray-1000/50 rounded-lg p-6 border-l-4" style="border-color: var(--color1);">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-Orbitron" style="background: linear-gradient(45deg, var(--color1), var(--color2));">
-                                ${project.num}
+                                •
                             </div>
                             <h4 class="text-2xl font-Orbitron">${project.title}</h4>
                         </div>
