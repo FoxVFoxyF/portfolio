@@ -2005,48 +2005,76 @@ const cardData = {
             "Rendering techniques"
         ]
     },
-    unity: {
-        title: "Unity",
-        description: "VRChat Avatars & Bonelab Mods",
-        animations: [
-            { src: "https://i.imgur.com/TTL3v12.mp4", alt: "Avatar Conversion" },
-            { src: "assets/images/ex1.png", alt: "Avatar 1" },
-            { src: "assets/images/ex2.png", alt: "Avatar 2" },
-            { src: "assets/images/ex3.png", alt: "Avatar 3" }
-        ],
-        info: "Creating VRChat avatars and mods using Unity",
-        experience: [
-            "Building avatars from Booth models",
-            "Outfit toggles system",
-            "Make-up and cosmetics",
-            "Custom toys and accessories",
-            "Booth model conversion to StressLevelZero",
-            "MarrowSDK rigging and setup",
-            "Hitbox calibration",
-            "Bone structure adjustment",
-            "Boopable character parts"
-        ]
-    },
-    roblox: {
-        title: "Roblox",
-        description: "Game Development & AI Systems",
-        animations: [
-            { src: "assets/videos/placeholder-roblox-ai.mp4", alt: "AI NPC" },
-            { src: "assets/images/placeholder-roblox-ui.png", alt: "UI Design" }
-        ],
-        info: "Developing games and AI systems on Roblox",
-        experience: [
-            "Real-time TTS (Text-to-Speech) - RVC integration",
-            "2-LLM powered conversation system",
-            "Advanced NPC interactions",
-            "Actions: sit, look, backaway, walk to, etc..",
-            "Responsive layouts",
-            "User experience focused",
-            "Accurate real-life mechanics",
-            "Advanced weapon systems",
-            "Physics-based gameplay"
-        ]
+unity: {
+    title: "Unity",
+    description: "VRChat Avatars & Bonelab Mods",
+    animations: [
+        { src: "https://i.imgur.com/TTL3v12.mp4", alt: "Avatar Conversion - MarrowSDK" },
+        { src: "assets/images/ex1.png", alt: "MarrowSDK Rigging" },
+
+        { src: "assets/images/ex2.png", alt: "VRChat Avatar 1" },
+        { src: "assets/images/ex3.png", alt: "VRChat Avatar 2" }
+    ],
+    info: "Creating VRChat avatars and mods using Unity",
+    sections: {
+        marrowSDK: {
+            title: "MarrowSDK / Bonelab",
+            description: "Avatar rigging, hitboxes, and game modding",
+            experience: [
+                "Booth model conversion to StressLevelZero",
+                "MarrowSDK rigging and setup",
+                "Hitbox calibration",
+                "Bone structure adjustment",
+                "Boopable character parts"
+            ]
+        },
+        vrchat: {
+            title: "VRChat Avatars",
+            description: "Avatar creation and cosmetics",
+            experience: [
+                "Building avatars from Booth models",
+                "Outfit toggles system",
+                "Make-up and cosmetics",
+                "Custom toys and accessories"
+            ]
+        }
     }
+},
+
+roblox: {
+    title: "Roblox",
+    description: "Game Development & AI Systems",
+    animations: [
+
+    ],
+    info: "Developing games while integrating AI capabilities",
+    sections: {
+        gameDev: {
+            title: "Game Development",
+            description: "Designing immersive worlds and realistic mechanics",
+            experience: [
+                "Responsive layouts & UX-focused interfaces",
+                "Accurate real-life physics & gameplay"
+            ]
+        },
+        aiSystems: {
+            title: "AI Systems",
+            description: "Creating intelligent NPCs and automation",
+                video: {
+                src: "https://vidplay.io/stream/2lSmPPFLe_GRA4Ji0IIGYg",
+                alt: "AI NPC behavior & TTS demo"
+            },
+            experience: [
+                "Real-time TTS (Text-to-Speech) with RVC integration",
+                "2-LLM powered conversation system",
+                "Advanced NPC interactions & decision-making",
+                "Action recognition & execution: sit, look, walk to, backaway, etc.",
+                "Dynamic behavior and context-aware responses"
+            ]
+        }
+    }
+}
+
 };
 
 // Expand card function
@@ -2070,43 +2098,58 @@ function expandCard(cardType) {
     `;
     
     if (cardType === 'blender' || cardType === 'unity' || cardType === 'roblox') {
+    // Animacje
+    if (data.animations && data.animations.length) {
         content += `
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                ${data.animations.map(anim => {
-                    if (anim.src.endsWith('.mp4') || anim.src.endsWith('.webm')) {
-                        return `
-                            <div class="relative cursor-pointer group" onclick="openLightboxVideo('${anim.src}')">
-                                <div class="aspect-video bg-gray-900 rounded overflow-hidden">
-                                    <video class="w-full h-full object-cover" src="${anim.src}"></video>
-                                </div>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <div class="text-white text-lg font-Rajdhani">Click to view</div>
-                                </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${data.animations.map(anim => {
+                if (anim.src.endsWith('.mp4') || anim.src.endsWith('.webm')) {
+                    return `
+                        <div class="relative cursor-pointer group" onclick="openLightboxVideo('${anim.src}')">
+                            <div class="aspect-video bg-gray-900 rounded overflow-hidden">
+                                <video class="w-full h-full object-cover" src="${anim.src}"></video>
                             </div>
-                        `;
-                    } else {
-                        return `
-                            <div class="relative cursor-pointer group" onclick="openLightbox('${anim.src}')">
-                                <div class="aspect-video bg-gray-900 rounded overflow-hidden">
-                                    <img class="w-full h-full object-cover" src="${anim.src}" alt="${anim.alt}">
-                                </div>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                    <div class="text-white text-lg font-Rajdhani">Click to view</div>
-                                </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-white text-lg font-Rajdhani">Click to view</div>
                             </div>
-                        `;
-                    }
-                }).join('')}
-            </div>
-            
-            <div class="border-l-4 pl-4" style="border-color: var(--color1);">
-                <p class="text-gray-400 italic">${data.info}</p>
-            </div>
-            
-            <div>
-                <h4 class="text-xl font-Orbitron mb-4">Experience & Skills</h4>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="relative cursor-pointer group" onclick="openLightbox('${anim.src}')">
+                            <div class="aspect-video bg-gray-900 rounded overflow-hidden">
+                                <img class="w-full h-full object-cover" src="${anim.src}" alt="${anim.alt}">
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="text-white text-lg font-Rajdhani">Click to view</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('')}
+        </div>
+        `;
+    }
+
+    // Info
+    if (data.info) {
+        content += `
+        <div class="border-l-4 pl-4" style="border-color: var(--color1);">
+            <p class="text-gray-400 italic">${data.info}</p>
+        </div>
+        `;
+    }
+
+    // Experience: sprawdzamy czy to sekcje czy pojedyncze experience
+    if (data.sections) {
+        for (const sectionKey in data.sections) {
+            const section = data.sections[sectionKey];
+            content += `
+            <div class="mt-6">
+                <h4 class="text-xl font-Orbitron mb-2">${section.title}</h4>
+                <p class="text-gray-300 mb-2">${section.description}</p>
                 <ul class="space-y-2">
-                    ${data.experience.map(exp => `
+                    ${section.experience.map(exp => `
                         <li class="flex items-center gap-2 font-Rajdhani">
                             <span style="color: var(--color1);">▸</span>
                             ${exp}
@@ -2114,8 +2157,25 @@ function expandCard(cardType) {
                     `).join('')}
                 </ul>
             </div>
+            `;
+        }
+    } else if (data.experience) {
+        content += `
+        <div class="mt-6">
+            <h4 class="text-xl font-Orbitron mb-4">Experience & Skills</h4>
+            <ul class="space-y-2">
+                ${data.experience.map(exp => `
+                    <li class="flex items-center gap-2 font-Rajdhani">
+                        <span style="color: var(--color1);">▸</span>
+                        ${exp}
+                    </li>
+                `).join('')}
+            </ul>
+        </div>
         `;
     }
+}
+
     
     content += `</div>`;
     expandedContent.innerHTML = content;
