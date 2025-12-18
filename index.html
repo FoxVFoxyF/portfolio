@@ -2045,7 +2045,7 @@ roblox: {
     title: "Roblox",
     description: "Game Development & AI Systems",
     animations: [
-
+        { src: "https://vidplay.io/stream/2lSmPPFLe_GRA4Ji0IIGYg", alt: "AI NPC behavior & TTS demo" }
     ],
     info: "Developing games while integrating AI capabilities",
     sections: {
@@ -2095,15 +2095,16 @@ function expandCard(cardType) {
                 ${data.title}
             </h3>
             <p class="text-xl font-Rajdhani text-gray-300">${data.description}</p>
+            
     `;
     
     if (cardType === 'blender' || cardType === 'unity' || cardType === 'roblox') {
-    // Animacje
+    
     if (data.animations && data.animations.length) {
         content += `
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             ${data.animations.map(anim => {
-                if (anim.src.endsWith('.mp4') || anim.src.endsWith('.webm')) {
+                if (anim.src.endsWith('.mp4') || anim.src.endsWith('.webm') || anim.src.includes('vidplay.io')) {
                     return `
                         <div class="relative cursor-pointer group" onclick="openLightboxVideo('${anim.src}')">
                             <div class="aspect-video bg-gray-900 rounded overflow-hidden">
