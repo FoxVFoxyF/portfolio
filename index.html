@@ -1986,7 +1986,7 @@ function createMatrixRain() {
 
 
 
-
+let lastExpandedCard = null;
 // Card data (same as before)
 const cardData = {
     blender: {
@@ -2051,6 +2051,7 @@ const cardData = {
 
 // Expand card function
 function expandCard(cardType) {
+    lastExpandedCard = cardType;
     const data = cardData[cardType];
     const expandedContent = document.getElementById('expanded-content');
     const closeBtn = document.querySelector('.cyber-close-btn');
@@ -2135,7 +2136,11 @@ function getColor(cardType, index) {
     return colors[cardType][index - 1] || '#ffffff';
 }
 
-function closeExpandedContent() {
+function hideExpandedTemporarily() {
+    closeExpandedContent({ keepState: true });
+}
+
+function closeExpandedContent(options = {}) {
     const expandedContent = document.getElementById('expanded-content');
     const closeBtn = document.querySelector('.cyber-close-btn');
     
@@ -2144,6 +2149,9 @@ function closeExpandedContent() {
     
     // Remove blur from background
     document.getElementById('backdrop').classList.remove('show');
+        if (!options.keepState) {
+        lastExpandedCard = null;
+    }
 }
 
 // Language functions
@@ -2196,6 +2204,7 @@ function updateLanguage() {
 
 // Lightbox functions
 function openLightbox(src) {
+        hideExpandedTemporarily();
     const lightbox = document.getElementById('cyber-lightbox');
     const image = document.getElementById('lightbox-image');
     const video = document.getElementById('lightbox-video');
@@ -2207,6 +2216,7 @@ function openLightbox(src) {
 }
 
 function openLightboxVideo(src) {
+        hideExpandedTemporarily();
     const lightbox = document.getElementById('cyber-lightbox');
     const image = document.getElementById('lightbox-image');
     const video = document.getElementById('lightbox-video');
@@ -2224,6 +2234,9 @@ function closeLightbox() {
     
     video.pause();
     lightbox.classList.remove('active');
+        if (lastExpandedCard) {
+        expandCard(lastExpandedCard);
+    }
 }
 
 // Scroll to next section
